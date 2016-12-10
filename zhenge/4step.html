@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="m">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="style/css/base.css">
+<link rel="stylesheet" href="style/css/tlp.css">
+<script type="text/javascript" src="style/lib/jquery.min.js"></script> 
+<script type="text/javascript" src="style/js/jquery.datePicker-min.js"></script>
+<link type="text/css" href="style/css/rili.css" rel="stylesheet" />
+
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+  <header class="demo-header widget-hd amcontent">
+    <div class="head"><span class="bj-icon ic-head-back">上一页</span><h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
+  </header>
+  <div class="wrap amcontent">
+  
+  <dl class="dl_date">
+	<dt class="dt_tit">广州迎宾路店 <span class="ic_md ">门店信息</span></dt>
+	<dd class="dd_rili">
+		
+<div class="datepicker"></div>
+	</dd>
+	
+	 <dd class="dd_line"></dd>
+	 <dd class="dd_tx"><p>没有适合的档期？试试档期提醒吧~ </p>
+	<a href="" class="btn_tx">档期提醒</a></dd>
+	
+<script type="text/javascript">
+$(document).ready(function(){
+	var datadata;
+	$.ajax({
+				type: "post",
+				url: 'rl2.js',
+				async: false,
+				dataType: "json",
+				success: function(data) {
+					datadata=data.dList;
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown)
+				 {
+					alert(textStatus);
+				}
+	});
+	var ttt=new Date();
+	$(".datepicker").datePicker({
+	//	startDate: "2015-1-1",
+		inline:true,
+		selectMultiple:false,
+		renderCallback:function(y, m, B, p){
+			var str =m.getFullYear()+"-"+(m.getMonth()+1)+"-"+m.getDate();
+			$.each(datadata,function(commentIndex, datadata2) {
+				if (str==datadata2.d) {
+					y.addClass("hasdata");
+					y.find("span").html("满");
+				}
+				
+			});
+		}
+	});
+	
+	$(".datepicker .current-month").bind("click",function(event){
+			var da=new Date($(this).find(".td_td").attr("da"));
+			var str =da.getFullYear()+"-"+(da.getMonth()+1)+"-"+da.getDate(); 
+			alert(str);
+	});
+				
+	
+});
+
+function getM(c,n){
+//	console.log(c+'--c--'+n);
+}
+
+</script>
+	
+  </dl>
+ 
+ </div>
+  <nav id="menu">
+    <ul class="menu_ku">
+      <li class="" onClick="window.location='index.html'"><span class="menu_yy">开始预约</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_myorder">我的订单</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_ziliao">个人资料</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_mend">门店地址</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_xuz">拍摄须知</span></li>
+    </ul>
+  </nav>
+  <div class="bMask"></div>
+</div>
+
+<!--page--> 
+
+<script type="text/javascript" src="style/js/base.js"></script> 
+<script>
+$(function(){
+
+});
+</script>
+</body>
+</html>

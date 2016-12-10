@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="m">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="style/css/base.css">
+<link rel="stylesheet" href="style/css/tlp.css">
+<script type="text/javascript" src="style/lib/jquery.min.js"></script> 
+<script type="text/javascript" src="style/js/jquery.datePicker-min.js"></script>
+<link type="text/css" href="style/css/rili.css" rel="stylesheet" />
+
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+  <header class="demo-header widget-hd amcontent">
+    <div class="head"><span class="bj-icon ic-head-back">上一页</span><h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
+  </header>
+  <div class="wrap amcontent">
+  
+  <dl class="dl_date">
+	<dt class="dt_tit"><span class="color1">广州迎宾路店</span> <span class="ic_md ">门店信息</span></dt>
+	<dd class="dd_dangq">已选择档期：<br>
+<span class="color1">2016年11月14号（周一） </span>  <span class="btn_dq">全部档期</span></dd>
+	
+	<dt class="dt_tit"><span class=""><em class="numb2">2</em>选择时间</span> <span class="s_r "><span class="ic_ke">可预约</span>&nbsp;<span class="ic_man">已约满</span></span></dt>
+	
+	<dd class="dd_tb">
+	<div class="tab_list">
+    <table width="100%">
+       <tr>
+          <td class="td_man"><span class="ic_ke">10:00 </span></td>
+          <td><span class="ic_ke">10:30 </span></td>
+          <td class="td_man"><span class="ic_ke">11:30 </span></td>
+          <td><span class="ic_ke">11:00 </span></td>
+       </tr>
+	        <tr>
+          <td><span class="ic_ke">10:00 </span></td>
+          <td class=""><span class="ic_ke">10:30 </span></td>
+          <td class="td_man"><span class="ic_ke">11:30 </span></td>
+          <td><span class="ic_ke">11:00 </span></td>
+       </tr>
+	         <tr>
+          <td><span class="ic_ke">10:00 </span></td>
+          <td><span class="ic_ke">10:30 </span></td>
+          <td><span class="ic_ke">11:30 </span></td>
+          <td><span class="ic_ke">11:00 </span></td>
+       </tr>
+	         <tr>
+          <td><span class="ic_ke">10:00 </span></td>
+          <td><span class="ic_ke">10:30 </span></td>
+          <td><span class="ic_ke">11:30 </span></td>
+          <td><span class="ic_ke">11:00 </span></td>
+       </tr>
+	 
+    </table>  </div>
+	</dd>
+	
+		
+	
+  </dl>
+  
+ 
+
+
+ </div>
+  <nav id="menu">
+    <ul class="menu_ku">
+      <li class="" onClick="window.location='index.html'"><span class="menu_yy">开始预约</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_myorder">我的订单</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_ziliao">个人资料</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_mend">门店地址</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_xuz">拍摄须知</span></li>
+    </ul>
+  </nav>
+  <div class="bMask"></div>
+</div>
+
+<!--page--> 
+
+ <div class="zb_menu_con">
+<dl class="dl_zb_menu">
+<dt>
+<span class="color3 font12">您选择的档期是</span>
+</dt>
+<dd class="color1 dd_xuan">2016年11月14号（周一）15:00 <br>
+广州迎宾路店</dd>
+<dd class="color3 font12">是否确认？</dd>
+  <dd class="dd_line"></dd>
+  
+  <ul class="ul_btn clearfix">
+  <li><a href="" class="btn2">取消</a></li>
+  <li><a href="" class="btn">确认</a></li>
+  </ul>
+ 
+</dl>
+ 
+</div>
+
+<script type="text/javascript" src="style/js/base.js"></script> 
+<script>
+$(function(){
+	$(".tab_list td").click(function(){
+		if(!$(this).hasClass("td_man")){
+			$(".td_select").removeClass("td_select");
+			$(this).addClass("td_select");
+			tomenu()
+		}
+	})
+});
+
+function tomenu(){
+		$(".zb_menu_con").slideDown();
+		if($(".menu_bg").length>0){
+			$(".menu_bg").addClass("menu_bg-active");
+		}else{
+			$("body").append('<div class="menu_bg"></div>');
+			$(".menu_bg").addClass("menu_bg-active");
+		}
+		$(".menu_bg-active,.share_btn").click(function(){
+			$(".zb_menu_con").slideUp();	
+			setTimeout(function(){
+				$(".menu_bg-active").removeClass("menu_bg-active");	
+				$(".menu_bg").remove();	
+			},300);
+		})
+	}	
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="m">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="style/css/base.css">
+<link rel="stylesheet" href="style/css/tlp.css">
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+  <header class="demo-header widget-hd amcontent">
+    <div class="head"><span class="bj-icon ic-head-back">上一页</span><h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
+  </header>
+  <div class="wrap amcontent">
+  
+ <dl class="dl_ziliao">
+	<dt class="color1"><span class="ic_zl">个人资料</span></dt>           
+	<dd class="zl_tips color3">我们保证，绝不会向第三方透露您的资料信息。</dd>	
+	<dd class="dd_line"></dd>
+	<dd class="dd_tit clearfix"><p>*您的姓名</p><p>*您的性别</p></dd>
+	<dd class="dd_input clearfix"><p><input type="text" class="input" value="宋盈聪" /></p> <p class="s_radiobox"><span class="s_radio">女士</span>&nbsp;&nbsp; <span class="s_radio s_radio_ed">先生</span></p></dd>	
+	<dd class="dd_tit">*您的手机</dd>
+	<dd class="dd_input"><span class="s_cell"><input type="text" value="13926413005" class="input" /><span class="s_get">获取验证码</span></span></dd>
+	<dd class="dd_tit">*您的邮箱</dd>
+	<dd class="dd_input"><input type="text" value="3147652357@qq.com" class="input" /></dd>
+	<dd class="dd_tit">*您的收货地址</dd>
+	<dd class="dd_input"><input type="text" value="广州市越秀区六榕街道迎宾路32号1楼" class="input" /></dd><br>
+	<dd class="dd_line"></dd>
+	<dd> <ul class="ul_btn clearfix">
+  <li><a href="" class="btn2">取消</a></li>
+  <li><a href="" class="btn">保存</a></li>
+  </ul></dd>
+ </dl>
+ 
+  
+  
+ 
+ 
+ </div>
+  <nav id="menu">
+    <ul class="menu_ku">
+      <li class="" onClick="window.location='index.html'"><span class="menu_yy">开始预约</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_myorder">我的订单</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_ziliao">个人资料</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_mend">门店地址</span></li>
+      <li class="" onClick="window.location='index.html'"><span class="menu_xuz">拍摄须知</span></li>
+    </ul>
+  </nav>
+  <div class="bMask"></div>
+</div>
+
+<!--page--> 
+<script type="text/javascript" src="style/lib/jquery.min.js"></script> 
+<script type="text/javascript" src="style/js/base.js"></script> 
+<script>
+$(function(){
+	$(".s_radiobox .s_radio").click(function(event){
+		$(this).addClass("s_radio_ed").siblings(".s_radio").removeClass("s_radio_ed");	
+	});
+});
+</script>
+</body>
+</html>
