@@ -1,5 +1,5 @@
 <?php
-namespace Order\Controller;
+namespace Store\Controller;
 use Common\Controller\HomebaseController;
 
 class IndexController extends HomebaseController{

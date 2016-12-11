@@ -7,4 +7,11 @@ class IndexController extends HomebaseController{
 	function index(){
         $this->display();
 	}
+
+	function show(){
+        $id = $_GET['id'];
+
+        $this->display(':show');
+
+    }
 }

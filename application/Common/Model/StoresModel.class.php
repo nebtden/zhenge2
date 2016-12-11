@@ -2,7 +2,7 @@
 namespace Common\Model;
 
 
-class StoreOrdersModel extends CommonModel{
+class StoresModel extends CommonModel{
 	
 	//自动验证
 	protected $_validate = array(

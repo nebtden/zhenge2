@@ -24,7 +24,8 @@
 // | Author: Dean <zxxjjforever@163.com>
 // +----------------------------------------------------------------------
 namespace Portal\Controller;
-use Common\Controller\HomebaseController; 
+use Common\Controller\HomebaseController;
+use Common\Model\StoreModel;
 /**
  * 首页
  */
@@ -36,6 +37,21 @@ class IndexController extends HomebaseController {
     }
 
     public function step2(){
+        //得到店铺列表
+
+        $model_store = M('Stores');
+        $storelist = $model_store->select();
+
+        if($_GET['store_id']){
+            $_SESSION['store_id'] = intval($_GET['store_id']);
+            $storeinfo = $model_store->where(['id'=>intval($_GET['store_id'])])->find();
+        }else{
+            $storeinfo = array_values($storelist)[0];
+            $_SESSION['store_id'] =$storeinfo['id'];
+        }
+
+        $this->assign('storelist',$storelist);
+        $this->assign('storeinfo',$storeinfo);
         $this->display(":step2");
     }
 

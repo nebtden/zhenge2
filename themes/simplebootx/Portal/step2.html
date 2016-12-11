@@ -1,0 +1,157 @@
+<!doctype html>
+<html class="m">
+<head>
+    <title>第二步</title>
+    <tc_include file="Public:head" />
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+    <header class="demo-header widget-hd amcontent">
+        <div class="head"><span class="bj-icon head-city">
+			<i>{$storeinfo.store_name}</i>
+		</span>
+            <h2 class="h2_logo">
+
+            </h2>
+            <span class="bj-icon ic_head_menu" id="s_menu">
+
+			</span>
+        </div>
+    </header>
+
+    <dl class="change_city">
+        <dd class="dd_city">
+            <ul class="ul_city clearfix ">
+                <volist name="storelist" id="vo"  >
+                    <li>
+                        <a href="{:U('product/index',['store_id'=>$vo.id])}" class="">{$vo.store_name}</a>
+                    </li>
+                </volist>
+
+
+            </ul>
+    </dl>
+
+    <div class="wrap amcontent">
+
+        <dl class="dl_zhen">
+            <dt class="dt_tit"><span>甄证</span></dt>
+            <dd class="zhen_con">
+                <ul class="zhen_ul clearfix zhen_ul_2">
+                    <li><span class="s_img">
+						<a href="{:U('product/index/show',['id'=>1])}">
+							<img src="__TMPL__Public/style/images/z1.png">
+						</a>
+					</span><span class="s_title">身份证照</span>
+                    </li>
+                    <li>
+						<span class="s_img">
+							<a href="{:U('product/index/show',['id'=>2])}">
+							<img src="__TMPL__Public/style/images/z2.png">
+						</a>
+						</span>
+
+                        <span class="s_title">签证照</span>
+                    </li>
+                </ul>
+            </dd>
+            <dt class="dt_tit"><span>甄选</span></dt>
+            <dd class="zhen_con">
+                <ul class="zhen_ul clearfix ">
+                    <li >
+                        <a href="{:U('product/index/show',['id'=>6])}">
+                        <span class="s_img">
+					     <img src="__TMPL__Public/style/images/x1.png">
+                        </span>
+                            <span class="s_title">简历照</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>7])}">
+                            <span class="s_img">
+                                <img src="__TMPL__Public/style/images/x2.png"></span>
+                            <span class="s_title">工牌照</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>8])}">
+                            <span class="s_img">
+                                <img src="__TMPL__Public/style/images/x3.png"></span>
+                            <span class="s_title">社交头像照</span>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+            <dt class="dt_tit"><span>甄形</span></dt>
+            <dd class="zhen_con">
+                <ul class="zhen_ul clearfix ">
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>9])}">
+                            <span class="s_img"><img src="__TMPL__Public/style/images/xx1.png"></span><span class="s_title">商务形象照</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>10])}">
+                            <span class="s_img"><img src="__TMPL__Public/style/images/xx2.png"></span><span class="s_title">专有职业照</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>11])}">
+                            <span class="s_img"><img src="__TMPL__Public/style/images/xx3.png"></span><span class="s_title">学位照</span>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+            <dt class="dt_tit"></dt>
+            <dd class="zhen_con">
+                <ul class="zhen_ul clearfix ">
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>3])}">
+                            <span class="s_zhen">甄真</span><span class="s_img"><img src="__TMPL__Public/style/images/zz1.png"></span><span class="s_title">全身形象</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>4])}">
+                            <span class="s_zhen">甄宠</span><span class="s_img"><img src="__TMPL__Public/style/images/zz2.png"></span><span class="s_title">小朋友/宠物照</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>5])}">
+                            <span class="s_zhen">甄爱</span><span class="s_img"><img src="__TMPL__Public/style/images/zz3.png"></span><span class="s_title">结婚证照</span>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+            <dt class="dt_tit"><span class="s2">电话预约</span></dt>
+            <dd class="zhen_con">
+                <ul class="zhen_ul clearfix zhen_ul_2">
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>12])}">
+                            <span class="s_img"><img src="__TMPL__Public/style/images/y1.png"></span><span class="s_title">全家福</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('product/index/show',['id'=>13])}">
+                            <span class="s_img"><img src="__TMPL__Public/style/images/y2.png"></span><span class="s_title">企业外拍</span>
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+
+        </dl>
+    </div>
+    <tc_include file="Public:nav" />
+</div>
+
+<!--page-->
+
+<script>
+    $(function(){
+        $(".head-city").click(function(event){
+            loadCity();
+        });
+    });
+</script>
+</body>
+</html>
