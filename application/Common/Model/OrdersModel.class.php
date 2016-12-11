@@ -39,6 +39,11 @@ class OrdersModel extends CommonModel{
 		parent::_before_write($data);
 
 	}
+
+	public function getOrderinfo($id){
+	    $order_info = $this->where(['id'=>$id])->find();
+        return $order_info;
+    }
 	
 }
 
