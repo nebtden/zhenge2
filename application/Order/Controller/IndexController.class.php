@@ -33,12 +33,29 @@ class IndexController extends HomebaseController{
         $this->display(':show');
     }
 
-    function real(){
+    function create(){
         $id = intval($_GET['id']);
         $model_order = M('orders');
         $order_info = $model_order->where(['id'=>intval($id)])->find();
 
 
-        $this->display(':real');
+        $this->display(':create');
+    }
+
+    function detail(){
+        $id = intval($_GET['id']);
+        $model_order = M('orders');
+        $order_info = $model_order->where(['id'=>intval($id)])->find();
+
+        $this->assign('order_info',$order_info);
+        $this->display(':detail');
+    }
+
+    function my(){
+        //需要连表查询
+        $model_order = M('orders');
+        $order_list = $model_order->where(['member_id'=>$_SESSION['member_id']])->select();
+        $this->assign('order_list',$order_list);
+        $this->display(':my');
     }
 }
