@@ -7,14 +7,16 @@
 <body class="">
 <div class="am-page" id="mobile-index">
     <header class="demo-header widget-hd amcontent">
-        <div class="head"><span class="bj-icon ic-head-back">上一页</span><h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
+        <div class="head">
+            <span class="bj-icon ic-head-back" onclick="history.back()">上一页</span>
+            <h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
     </header>
     <div class="wrap amcontent">
 
         <dl class="dl_date">
-            <dt class="dt_tit"><span class="color1">广州迎宾路店</span> <span class="ic_md ">门店信息</span></dt>
+            <dt class="dt_tit"><span class="color1">{$store_info.store_name}</span> <span class="ic_md ">门店信息</span></dt>
             <dd class="dd_dangq">已选择档期：<br>
-                <span class="color1">2016年11月14号（周一） </span>  <span class="btn_dq">全部档期</span></dd>
+                <span class="color1">{$Think.get.date}  </span>  <span class="btn_dq">全部档期</span></dd>
 
             <dt class="dt_tit"><span class=""><em class="numb2">2</em>选择时间</span> <span class="s_r "><span class="ic_ke">可预约</span>&nbsp;<span class="ic_man">已约满</span></span></dt>
 
@@ -54,8 +56,8 @@
             <dt>
                 <span class="color3 font12">您选择的档期是</span>
             </dt>
-            <dd class="color1 dd_xuan">2016年11月14号（周一）15:00 <br>
-                {$address}</dd>
+            <dd class="color1 dd_xuan">{$Think.get.date} <span id="time_value"></span> <br>
+                {$store_info.address}</dd>
             <dd class="color3 font12">是否确认？</dd>
             <dd class="dd_line"></dd>
 
@@ -78,6 +80,7 @@
                 $(".td_select").removeClass("td_select");
                 $(this).addClass("td_select");
                 $("#time_index").val($(this).data('key'));
+                $("#time_value").text($(this).text());
                 tomenu()
             }
         })

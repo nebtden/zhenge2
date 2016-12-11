@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="m">
 <head>
+    <title>确定订单</title>
     <tc_include file="Public:head" />
 </head>
 <body class="">
@@ -14,17 +15,19 @@
                 <dt>确认订单</dt>
                 <dd>
                     <ul class="ul_tb ">
-                        <li><label for="">订单编号：</label><div class="d_input color1">8899</div></li>
-                        <li><label for="">拍摄日期：</label><div class="d_input color1">2016年12月26日（周六）15:00</div></li>
-                        <li><label for="">拍摄时间：</label><div class="d_input color1">15:00</div></li>
-                        <li><label for="">拍摄门店：</label><div class="d_input color1">广州迎宾路店  <span class="ic_md ">门店信息</span></div></li>
+                        <li><label for="">订单编号：</label><div class="d_input color1">{$order_info.order_sn}</div></li>
+                        <li><label for="">拍摄日期：</label><div class="d_input color1">{$order_info.date} </div></li>
+                        <li><label for="">拍摄时间：</label><div class="d_input color1">{$order_info.time_value}</div></li>
+                        <li><label for="">拍摄门店：</label><div class="d_input color1">{$store_info.store_name}  <span class="ic_md ">门店信息</span></div></li>
                     </ul>
                     <ul class="ul_tb ul_tb_b2">
-                        <li><label for=""><strong>套餐信息</strong></label><div class="d_input color1 ">证件照   X 1份</div></li>
+                        <li><label for=""><strong>套餐信息</strong></label><div class="d_input color1 ">{$product_info.title} </div></li>
                         <li><label for=""></label><div class="d_input color3 font12">套餐可至门店更改，以最终拍摄为准</div></li>
-                        <li><label for=""><strong>预计耗时</strong></label><div class="d_input color1">约1小时</div></li>
+                        <li><label for=""><strong>预计耗时</strong></label><div class="d_input color1">{$product_info.time}</div></li>
                         <li><label for=""></label><div class="d_input color3 font12">时长仅供参考，请预留充足的时间</div></li>
-                        <li><label for=""><strong>优惠码：</strong></label><div class="d_input"><input type="text" value="" size="20" class="input" /> 可不填</div></li>
+                        <li><label for="">
+                            <strong>优惠码：</strong></label><div class="d_input">
+                            <input type="text" value="" size="20" class="input" /> 可不填</div></li>
                     </ul>
                     <ul class="ul_money ul_money2 clearfix">
                         <li>订单总金额： <b class="color3 font18">¥185</b></li>
@@ -34,7 +37,7 @@
                 <dd class="dd_gz">请核对订单内容，付款后若取消订单，订金将受损失<br>
                     <span class="s_arrob">查看退款规则</span>
                     <div class="box_gz">
-                        查看退款规则查看退款规则查看退款规则查看退款规则查看退款规则查看退款规则查看退款规则查看退款规则查看退款规则查看退款规则查看退款规则
+                        退款规则
                     </div>
                 </dd>
             </dl>
@@ -51,7 +54,9 @@
                 <dd class="dd_tit">*您的收货地址</dd>
                 <dd class="dd_input"><input type="text" value="" class="input" /></dd><br>
                 <dd class="dd_line"></dd>
-                <dd class="btnbox"><a href="" class="btn">提交订单</a></dd>
+                <dd class="btnbox">
+                    <button class="btn" type="submit">提交订单</button>
+                </dd>
             </dl>
 
         </div>

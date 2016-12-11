@@ -8,7 +8,7 @@
 <div class="am-page" id="mobile-index">
     <header class="demo-header widget-hd amcontent">
         <div class="head">
-            <span class="bj-icon ic-head-back">上一页</span>
+            <span class="bj-icon ic-head-back" onclick="history.back()">上一页</span>
             <h2 class="h2_logo"></h2>
             <span class="bj-icon ic_head_menu" id="s_menu">
 
@@ -59,15 +59,33 @@
                                 }
 
                             });
+                            if(m.getFullYear()<ttt.getFullYear()
+                                    && m.getMonth()<ttt.getMonth()
+                                    && m.getDate()<ttt.getDate()){
+                                console.log(str);
+                                console.log(y);
+                                y.addClass("disabled");
+                                y.addClass("other-month");
+
+                            }
 
                         }
                     });
+                    $(".td ").each(function () {
+//                        console.log();
+                        $(this).hasClass('disabled').addClass('other-month');
+                    })
 
                     $(".datepicker .current-month").bind("click",function(event){
                         var da=new Date($(this).find(".td_td").attr("da"));
                         var str =da.getFullYear()+"-"+(da.getMonth()+1)+"-"+da.getDate();
 //                        alert(str);
-                       window.location =  '/index.php?g=product&m=index&a=time&date='+str;
+
+                        if(da.getFullYear()>=ttt.getFullYear()
+                                && da.getMonth()>=ttt.getMonth()
+                                && da.getDate()>=ttt.getDate()){
+                            window.location =  '/index.php?g=product&m=index&a=time&date='+str;
+                        }
                     });
 
 
@@ -84,6 +102,14 @@
     </div>
     <tc_include file="Public:nav" />
 </div>
+<style>
+    td.disable{
+        background: #FFF;
+        color: #ccc;
+        cursor: default;
+    }
+
+</style>
 
 <!--page-->
 

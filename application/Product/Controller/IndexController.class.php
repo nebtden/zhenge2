@@ -14,7 +14,17 @@ class IndexController extends HomebaseController{
         $id = intval($_GET['id']);
 	    if($id){
 	        $_SESSION['product_id'] = $id;
+        }else{
+            throw  new Exception('系统错误！');
         }
+        $product_model = M('products');
+        $model_store = M('stores');
+        $product_info=$product_model->where(['id'=>$id])->find();
+
+
+        $storeinfo = $model_store->where(['id'=>$_SESSION['store_id'] ])->find();
+        $this->assign('storeinfo',$storeinfo);
+        $this->assign('product_info',$product_info);
         $this->display(':show');
     }
 
@@ -36,15 +46,15 @@ class IndexController extends HomebaseController{
             $_SESSION['date'] = $_GET['date'];
         }
         $Store = M("Stores"); // 实例化User对象
-        $condition['id'] = $_SESSION['id'];
+        $condition['id'] = $_SESSION['store_id'];
 
         // 把查询条件传入查询方法
-        $store_info = $Store->where($condition)->select();
-        $address = $store_info[0]['address'];
+        $store_info = $Store->where($condition)->find();
+//        $address = $store_info[0]['address'];
 
         $time_index = OrdersModel::$_time_index;
         $this->assign('list',$time_index);
-        $this->assign('address',$address);
+        $this->assign('store_info',$store_info);
         $this->display(':time');
     }
 

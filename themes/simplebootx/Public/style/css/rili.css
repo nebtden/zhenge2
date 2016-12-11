@@ -4,6 +4,7 @@ table.jCalendar{border-collapse:collapse;font-family:Arial;width:100%;color:#696
 table.jCalendar th{background:#fff;font-weight:normal;vertical-align:middle;border:1px solid #fff; font-size:14px; padding:10px 0;}
 table.jCalendar td{background:#fff;border:1px solid #fff;height:27px;text-align:center;}
 table.jCalendar td.other-month{background:#FFF;color:#ccc; cursor:default;}
+
 table.jCalendar td.today{/*background:#F60;*/color:#f66;}
 table.jCalendar td.selected,table.jCalendar td.selected.dp-hover{}
 table.jCalendar .current-month.dp-hover{background:#;}
@@ -24,6 +25,8 @@ div.dp-popup h2{text-align:center;margin:0;padding:0;height:32px;line-height:32p
 
 a#dp-close{font-size:11px;padding:4px 0;text-align:center;display:block;}
 a#dp-close:hover{text-decoration:underline;}
+
+table.jCalendar td.disabled{background:#FFF;color:#ccc;}
 
 .dp-calendar{padding:3px 0;  }
 .td_day{ /*position:absolute; right:2px; bottom:1px; line-height:12px; overflow:hidden;*/ font-size:16px; display:inline-block; text-align:center; width:35px; height:35px; border-radius:50%; line-height:35px; }
