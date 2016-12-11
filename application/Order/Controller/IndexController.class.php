@@ -11,7 +11,7 @@ class IndexController extends HomebaseController{
 
 	//最终
 	function show(){
-        $id = $_GET['id'];
+        $id = intval($_GET['id']);
         $model_order = M('orders');
         $order_info = $model_order->where(['id'=>intval($id)])->find();
         $order_info['time_value'] = OrdersModel::$_time_index[$order_info['time_index']];
@@ -29,10 +29,16 @@ class IndexController extends HomebaseController{
         $this->assign('order_info',$order_info);
         $this->assign('store_info',$store_info);
         $this->assign('product_info',$product_info);
+        $this->assign('money',C('money'));
         $this->display(':show');
     }
 
     function real(){
-        $this->display(':show');
+        $id = intval($_GET['id']);
+        $model_order = M('orders');
+        $order_info = $model_order->where(['id'=>intval($id)])->find();
+
+
+        $this->display(':real');
     }
 }
