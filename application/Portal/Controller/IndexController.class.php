@@ -35,6 +35,30 @@ class IndexController extends HomebaseController {
     	$this->display(":index");
     }
 
+    public function step2(){
+        $this->display(":step2");
+    }
+
+    public function step3(){
+        $this->display(":step3");
+    }
+
+    public function step4(){
+        $this->display(":step4");
+    }
+
+    public function step5(){
+        $this->display(":step5");
+    }
+
+    public function step6(){
+        $this->display(":step6");
+    }
+
+    public function step7(){
+        $this->display(":step7");
+    }
+
 }
 
 

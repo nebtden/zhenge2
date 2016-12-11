@@ -2,13 +2,8 @@
 <!doctype html>
 <html class="m">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-dns-prefetch-control" content="on">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
-	<meta name="renderer" content="webkit">
-	<title></title>
-	<link rel="stylesheet" href="__TMPL__Public/style/css/base.css">
-	<link rel="stylesheet" href="__TMPL__Public/style/css/tlp.css">
+	<title>甄阁</title>
+	<tc_include file="Public:head" />
 </head>
 <body class="">
 <div class="am-page" id="mobile-index">
@@ -35,28 +30,19 @@
 			<dd class="dd_tit">预约步骤流程</dd>
 			<dd class="dd_step"><span><em class="numb">1</em>选择类型</span> <span><em class="numb">2</em>选择档期</span> <span><em class="numb">3</em>选择时间</span> <span><em class="numb">4</em>支付订金</span></dd>
 
-			<dd class="dd_btn"><a href="" class="btn">开始预约</a></dd>
-			<dd class="dd_btn"><a href="" class="btn2">我的订单</a></dd>
+			<dd class="dd_btn"><a href="{:U('portal/index/step2')}" class="btn">开始预约</a></dd>
+			<dd class="dd_btn"><a href="/myorders" class="btn2">我的订单</a></dd>
 		</dl>
 
 
 
 	</div>
-	<nav id="menu">
-		<ul class="menu_ku">
-			<li class="" onClick="window.location='index.html'"><span class="menu_yy">开始预约</span></li>
-			<li class="" onClick="window.location='index.html'"><span class="menu_myorder">我的订单</span></li>
-			<li class="" onClick="window.location='index.html'"><span class="menu_ziliao">个人资料</span></li>
-			<li class="" onClick="window.location='index.html'"><span class="menu_mend">门店地址</span></li>
-			<li class="" onClick="window.location='index.html'"><span class="menu_xuz">拍摄须知</span></li>
-		</ul>
-	</nav>
-	<div class="bMask"></div>
+	<tc_include file="Public:nav" />
 </div>
 
 <!--page-->
-<script type="text/javascript" src="style/lib/jquery.min.js"></script>
-<script type="text/javascript" src="style/js/base.js"></script>
+<script type="text/javascript" src="__TMPL__Public/style/lib/jquery.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/style/js/base.js"></script>
 <script>
 	$(function(){
 
