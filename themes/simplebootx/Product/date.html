@@ -33,11 +33,11 @@
                     var datadata;
                     $.ajax({
                         type: "get",
-                        url: '__TMPL__Public/style/js/'+'rl2.js',
+                        url: "{:U('product/index/getDateJson')}",
                         async: false,
                         dataType: "json",
                         success: function(data) {
-                            datadata=data.dList;
+                            datadata=data;
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown)
                         {
@@ -51,35 +51,48 @@
                         inline:true,
                         selectMultiple:false,
                         renderCallback:function(y, m, B, p){
-                            var str =m.getFullYear()+"-"+(m.getMonth()+1)+"-"+m.getDate();
+                            var date = 0;
+                            if(m.getDate()<10){
+                                date = '0'+m.getDate();
+                            }else{
+                                date = m.getDate();
+                            }
+                            var str =m.getFullYear()+"-"+(m.getMonth()+1)+"-"+date;
                             $.each(datadata,function(commentIndex, datadata2) {
                                 if (str==datadata2.d) {
                                     y.addClass("hasdata");
+                                    y.addClass("disabled");
                                     y.find("span").html("满");
                                 }
+
 
                             });
                             if(m.getFullYear()<ttt.getFullYear()
                                     && m.getMonth()<ttt.getMonth()
                                     && m.getDate()<ttt.getDate()){
-                                console.log(str);
-                                console.log(y);
+
                                 y.addClass("disabled");
                                 y.addClass("other-month");
 
                             }
 
-                        }
+
+                        },
+
                     });
                     $(".td ").each(function () {
 //                        console.log();
                         $(this).hasClass('disabled').addClass('other-month');
                     })
 
-                    $(".datepicker .current-month").bind("click",function(event){
+                    $(".datepicker .current-month").on("click",function(event){
+                        console.log('2222');
                         var da=new Date($(this).find(".td_td").attr("da"));
                         var str =da.getFullYear()+"-"+(da.getMonth()+1)+"-"+da.getDate();
 //                        alert(str);
+                        if($(this).hasClass('disabled')){
+                            return false;
+                        }
 
                         if(da.getFullYear()>=ttt.getFullYear()
                                 && da.getMonth()>=ttt.getMonth()
@@ -87,6 +100,8 @@
                             window.location =  '/index.php?g=product&m=index&a=time&date='+str;
                         }
                     });
+
+
 
 
                 });
@@ -113,10 +128,11 @@
 
 <!--page-->
 
-<script type="text/javascript" src="__TMPL__Public/style/js/base.js"></script>
 <script>
     $(function(){
-
+//        $('td').click(function () {
+//            window.location = $(this).data('url');
+//        });
     });
 </script>
 </body>

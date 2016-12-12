@@ -42,9 +42,9 @@ class IndexController extends HomebaseController {
         $model_store = M('Stores');
         $storelist = $model_store->select();
 
-        if($_GET['store_id']){
-            $_SESSION['store_id'] = intval($_GET['store_id']);
-            $storeinfo = $model_store->where(['id'=>intval($_GET['store_id'])])->find();
+        if($_GET['id']){
+            $_SESSION['store_id'] = intval($_GET['id']);
+            $storeinfo = $model_store->where(['id'=>intval($_GET['id'])])->find();
         }else{
             $storeinfo = array_values($storelist)[0];
             $_SESSION['store_id'] =$storeinfo['id'];

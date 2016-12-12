@@ -23,11 +23,10 @@
             <dd class="dd_tb">
                 <div class="tab_list">
                     <table width="100%">
-
                         <tr>
                             <volist name="list" id="vo" mod="4" key="k">
 
-                                <td data-key="{$key}"><span class="ic_ke" >{$vo} </span></td>
+                                <td data-key="{$key}" ><span class=" <php>if(in_array($key,$used_list)){echo 'ic_man';}else{echo 'ic_ke';}  </php>" >{$vo} </span></td>
                                 <eq name="mod" value="3">
                                   </tr><tr>
                                 </eq>
@@ -76,7 +75,7 @@
 <script>
     $(function(){
         $(".tab_list td").click(function(){
-            if(!$(this).hasClass("td_man")){
+            if(!$(this).find('span').hasClass("ic_man")){
                 $(".td_select").removeClass("td_select");
                 $(this).addClass("td_select");
                 $("#time_index").val($(this).data('key'));
@@ -114,5 +113,11 @@
     }
 
 </script>
+<style>
+    .disable{
+        background: lightgray;
+    }
+
+</style>
 </body>
 </html>

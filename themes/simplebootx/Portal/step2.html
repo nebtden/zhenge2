@@ -24,7 +24,7 @@
             <ul class="ul_city clearfix ">
                 <volist name="storelist" id="vo"  >
                     <li>
-                        <a href="{:U('product/index',['store_id'=>$vo.id])}" class="">{$vo.store_name}</a>
+                        <a href="/index.php?g=portal&m=index&a=step2&id={$vo.id}" class="">{$vo.store_name}</a>
                     </li>
                 </volist>
 

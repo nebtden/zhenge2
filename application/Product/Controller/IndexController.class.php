@@ -4,8 +4,11 @@ use Common\Controller\HomebaseController;
 use Think\Exception;
 use Common\Model\OrdersModel;
 
+
+
+
 class IndexController extends HomebaseController{
-	
+
 	function index(){
         $this->display();
 	}
@@ -17,6 +20,7 @@ class IndexController extends HomebaseController{
         }else{
             throw  new Exception('系统错误！');
         }
+
         $product_model = M('products');
         $model_store = M('stores');
         $product_info=$product_model->where(['id'=>$id])->find();
@@ -35,10 +39,29 @@ class IndexController extends HomebaseController{
         $this->display(':date');
     }
 
-    function time(){
+    function getDateJson(){
+        $model_order = M('Orders');
 
-//        $_SESSION['member_id'] =1;
-//        $_SESSION['member_id'] =1;
+        $conditon = [];
+        $conditon['store_id'] = $_SESSION['store_id'];
+        $conditon['date']     =['egt', date('Y-m-d')];
+        $order_list=$model_order->field('count(*) as count,date')->where($conditon)->group('date')->select();
+        $length = count(OrdersModel::$_time_index);
+
+        $return_list = [];
+        foreach ($order_list as &$val){
+            if($val['count']==$length){
+                $return_list[] =['d'=>$val['date']] ;
+            }
+        }
+        echo json_encode($return_list);
+        exit();
+
+    }
+
+
+
+    function time(){
 
         if(!$_GET['date']){
             throw  new  Exception('请选择日期！');
@@ -46,17 +69,29 @@ class IndexController extends HomebaseController{
             $_SESSION['date'] = $_GET['date'];
         }
         $Store = M("Stores"); // 实例化User对象
+        $model_order = M('Orders');
         $condition['id'] = $_SESSION['store_id'];
-
-        // 把查询条件传入查询方法
         $store_info = $Store->where($condition)->find();
-//        $address = $store_info[0]['address'];
+
+        $conditon = [];
+        $conditon['store_id'] = $_SESSION['store_id'];
+        $conditon['date']     =   htmlspecialchars($_GET['date']);
+        $order_list=$model_order->field('id,time_index')->where($conditon)->select();
+        $used_list = [];
+        foreach ($order_list as $val){
+            $used_list[] = $val['time_index'];
+        }
 
         $time_index = OrdersModel::$_time_index;
+
         $this->assign('list',$time_index);
+        $this->assign('used_list',$used_list);
         $this->assign('store_info',$store_info);
         $this->display(':time');
     }
+
+
+
 
     function createOrder(){
         if(!IS_POST){
