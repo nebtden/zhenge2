@@ -16,37 +16,45 @@
     <div class="wrap amcontent obg">
         <div class="tit_order"><span class="ic_order color1">我的订单</span></div>
         <div class="order_list">
-            <volist name="order_list" id="vo"  >
+            <if condition = "$order_list">
+                <volist name="order_list" id="vo"  >
 
 
 
-                <dl class="d_order">
-                    <eq name="vo.order_state" value="2">
-                        <span class="s_zt">已完成</span>
-                    </eq>
-                    <eq name="vo.order_state" value="1">
-                        <span class="s_zt s_zt_zf">已支付</span>
-                    </eq>
-                    <eq name="vo.order_state" value="0">
-                        <span class="s_zt">已取消</span>
-                    </eq>
+                    <dl class="d_order">
+                        <eq name="vo.order_state" value="2">
+                            <span class="s_zt">已完成</span>
+                        </eq>
+                        <eq name="vo.order_state" value="1">
+                            <span class="s_zt s_zt_zf">已支付</span>
+                        </eq>
+                        <eq name="vo.order_state" value="0">
+                            <span class="s_zt">已取消</span>
+                        </eq>
 
-                    <dt>{$vo.member.name} <br>
-                        {$vo.date} <br>
-                        {$vo.store.address}</dt>
-                    <dd class="dd_z">{$vo.product.title}</dd>
-                    <dd class="dd_detail">
-                        <a href="{:U('order/index/detail',['id'=>$vo.id])}">
-                            查看订单详情 >
-                        </a>
-                    </dd>
+                        <dt>{$vo.member.name} <br>
+                            {$vo.date} <br>
+                            {$vo.store.address}</dt>
+                        <dd class="dd_z">{$vo.product.title}</dd>
+                        <dd class="dd_detail">
+                            <a href="{:U('order/index/detail',['id'=>$vo.id])}">
+                                查看订单详情 >
+                            </a>
+                        </dd>
+                    </dl>
+                </volist>
+
+                <else />
+                <dl>
+                    您暂时没有任何订单！
                 </dl>
-            </volist>
+            </if>
+
 
         </div>
 
     </div>
-    <tc_include file="Public:head" />
+    <tc_include file="Public:nav" />
 </div>
 
 <!--page-->

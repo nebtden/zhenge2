@@ -25,7 +25,9 @@
 // +----------------------------------------------------------------------
 namespace Portal\Controller;
 use Common\Controller\HomebaseController;
+use Common\Model\SettingModel;
 use Common\Model\StoreModel;
+
 /**
  * 首页
  */
@@ -33,6 +35,9 @@ class IndexController extends HomebaseController {
 	
     //首页 小夏是老猫除外最帅的男人了
 	public function index() {
+	    if(!$_SESSION['open_id']){
+            $_SESSION['open_id'] = 1;
+        }
     	$this->display(":index");
     }
 
@@ -55,24 +60,34 @@ class IndexController extends HomebaseController {
         $this->display(":step2");
     }
 
-    public function step3(){
-        $this->display(":step3");
-    }
+    public function get_access_token(){
 
-    public function step4(){
-        $this->display(":step4");
-    }
+        //考虑是否会过期
+        $setting = M('setting');
+        $access_token_list = $setting->where(['name'=>'access_token'])->find();
+        if($access_token_list && time()<$access_token_list['created_at']+$access_token_list['expires_in']){
+            return $access_token_list['value'];
+        }else{
+            $curl = new \Curl();
+            $result = $curl->get('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx2a94b63fba2f544e&secret=83e83a1a78965c8895bb4a86317e1485');
+            $result_array = json_decode($result,true);
+            if($access_token_list){
+                $data = [];
+                $data['value'] = $result_array['access_token'];
+                $data['expires_in'] = $result_array['expires_in'];
+                $data['created_at'] = time();
 
-    public function step5(){
-        $this->display(":step5");
-    }
+                $setting->where('name = "access_token"')->save($data);
+            }else{
+                $access_token_list->name = 'access_token';
+                $access_token_list->value = $result_array['access_token'];
+                $access_token_list->expires_in = $result_array['expires_in'];
+                $access_token_list->created_at = time();
+                $access_token_list->create();
+            }
+            return $result_array['access_token'];
+        }
 
-    public function step6(){
-        $this->display(":step6");
-    }
-
-    public function step7(){
-        $this->display(":step7");
     }
 
 }

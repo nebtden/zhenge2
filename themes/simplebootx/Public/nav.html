@@ -1,10 +1,18 @@
 <nav id="menu">
 	<ul class="menu_ku">
-		<li class="" onClick="window.location='index.html'"><span class="menu_yy">开始预约</span></li>
-		<li class="" onClick="window.location='index.html'"><span class="menu_myorder">我的订单</span></li>
-		<li class="" onClick="window.location='index.html'"><span class="menu_ziliao">个人资料</span></li>
-		<li class="" onClick="window.location='index.html'"><span class="menu_mend">门店地址</span></li>
-		<li class="" onClick="window.location='index.html'"><span class="menu_xuz">拍摄须知</span></li>
+		<li class="" onClick=""><span class="menu_yy">开始预约</span></li>
+		<li class="" data-href="{:U('order/index/my')}"><span class="menu_myorder">我的订单</span></li>
+		<li class="" data-href="{:U('member/index/index')}"><span class="menu_ziliao">个人资料</span></li>
+		<li class="" data-href="{:U('member/index/index')}"><span class="menu_mend">门店地址</span></li>
+		<li class="" data-href="{:U('member/index/index')}"><span class="menu_xuz">拍摄须知</span></li>
 	</ul>
 </nav>
 <div class="bMask"></div>
+<script>
+	$(function () {
+		$('#menu li').click(function () {
+			window.location = $(this).data('href');
+		})
+	});
+
+</script>

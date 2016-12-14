@@ -7,7 +7,11 @@
 <body class="">
 <div class="am-page" id="mobile-index">
     <header class="demo-header widget-hd amcontent">
-        <div class="head"><span class="bj-icon ic-head-back">上一页</span><h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
+        <div class="head">
+            <span class="bj-icon ic-head-back"  onclick="history.back()">上一页</span>
+            <h2 class="h2_logo"></h2>
+            <span class="bj-icon ic_head_menu" id="s_menu"></span>
+        </div>
     </header>
     <div class="wrap amcontent obg">
         <div class="order_show">
@@ -18,7 +22,9 @@
                     <ul class="ul_tb">
                         <li><label for="">订单编号：</label>
                             <div class="d_input color3">{$order_info.order_sn}
-                            <span class="s_wan">已完成订单</span></div></li>
+                                <span class="s_wan">已完成订单</span>
+                            </div>
+                        </li>
                         <li>
                             <label for="">创建时间：</label>
                             <div class="d_input color3">

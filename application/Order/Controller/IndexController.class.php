@@ -25,7 +25,7 @@ class IndexController extends HomebaseController{
 
         $product_model = M('products');
 
-        $product_info=$product_model->where(['id'=>$id])->find();
+        $product_info=$product_model->where(['id'=>$_SESSION['product_id']])->find();
         $this->assign('order_info',$order_info);
         $this->assign('store_info',$store_info);
         $this->assign('product_info',$product_info);

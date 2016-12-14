@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="m">
+<head>
+
+    <title></title>
+    <tc_include file="Public:head" />
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+    <header class="demo-header widget-hd amcontent">
+        <div class="head"><span class="bj-icon ic-head-back">上一页</span><h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
+    </header>
+    <div class="wrap amcontent">
+
+        <dl class="dl_ziliao">
+            <form method="post" action="{:U('member/index/post')}">
+                <dt class="color1"><span class="ic_zl">个人资料</span></dt>
+                <dd class="zl_tips color3">我们保证，绝不会向第三方透露您的资料信息。</dd>
+                <dd class="dd_line"></dd>
+                <dd class="dd_tit clearfix">
+                    <p>*您的姓名</p>
+                    <p>*您的性别</p>
+                </dd>
+                <dd class="dd_input clearfix">
+
+                    <p>
+                        <input type="text" class="input" name="name" value="" />
+                    </p>
+                    <p class="s_radiobox">
+                        <!-- <input type="radio" checked="checked" name="sex" value="male" />
+                         先生
+                         <input type="radio" name="sex" value="female" />
+                         女士-->
+                        <input type="hidden"  name="sex" value="female" />
+                        <!--<input type="hidden" value="male">-->
+                        <span class="s_radio" data-value="male">先生</span>&nbsp;&nbsp;
+                        <span class="s_radio s_radio_ed" data-value="female">女生</span>
+                    </p>
+                </dd>
+                <dd class="dd_tit">*您的手机</dd>
+                <dd class="dd_input"><span class="s_cell"><input type="text" name="telephone" value="" class="input" /><span class="s_get">获取验证码</span></span></dd>
+                <dd class="dd_tit">*您的邮箱</dd>
+                <dd class="dd_input"><input type="text" name="email" value="" class="input" /></dd>
+                <dd class="dd_tit">*您的收货地址</dd>
+                <dd class="dd_input"><input type="text" name="address" value="" class="input" /></dd><br>
+                <dd class="dd_line"></dd>
+                <dd>
+                    <ul class="ul_btn clearfix">
+                        <li><button  href="" class="btn2 calcel">取消</button></li>
+                        <li><button type="submit" href="" class="btn">保存</button></li>
+                    </ul>
+                </dd>
+            </form>
+        </dl>
+
+
+    </div>
+    <tc_include file="Public:nav" />
+</div>
+
+<!--page-->
+
+<script>
+    $(function(){
+        $(".s_radiobox .s_radio").click(function(event){
+            $(this).addClass("s_radio_ed").siblings(".s_radio").removeClass("s_radio_ed");
+            console.log($(this).data('value'));
+            $('input[name="sex"]').val($(this).data('value'));
+        });
+    });
+</script>
+</body>
+</html>
