@@ -16,14 +16,24 @@
 					订单<br>{$order_info.order_sn}
 				</strong><br>
 
-				<span class="color3 s_fang">广州迎宾路店</span><br>
+				<span class="color3 s_fang">{$order_info.address}</span><br>
 
-				<span class="color3">状态：</span>
-				<span class="s_kzt">客户下载中</span><br>
+				<span class="color3"> 状态：</span>
+				<eq name="order_info.order_state" value="2">
+					<span class="s_kzt "> 已完成</span>
+				</eq>
+				<eq name="order_info.order_state" value="1">
+					<span class="s_kzt s_zt_zf ">已支付</span>
+				</eq>
+				<eq name="order_info.order_state" value="0">
+					<span class="s_kzt ">已取消</span>
+				</eq>
+				<br>
 
-				<span class="color3">拍摄时间：</span>{$order_info.add_time}<br>
 
-				<span class="color3">服务：</span>4545454
+				<span class="color3">拍摄时间：</span>{$order_info.date} {$order_info.time}<br>
+
+				<!--<span class="color3">服务：</span>4545454-->
 
 			</div>
 

@@ -32,12 +32,12 @@
                             <span class="s_zt">已取消</span>
                         </eq>
 
-                        <dt>{$vo.member.name} <br>
-                            {$vo.date} <br>
-                            {$vo.store.address}</dt>
-                        <dd class="dd_z">{$vo.product.title}</dd>
+                        <dt>{$vo.name} <br>
+                            {$vo.date} {$vo.time}<br>
+                            {$vo.address}</dt>
+                        <dd class="dd_z">{$vo.product_title}</dd>
                         <dd class="dd_detail">
-                            <a href="{:U('order/index/detail',['id'=>$vo.id])}">
+                            <a href="{:U('order/index/detail',['id'=>$vo['id']])}">
                                 查看订单详情 >
                             </a>
                         </dd>

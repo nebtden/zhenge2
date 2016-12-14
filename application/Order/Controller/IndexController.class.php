@@ -4,13 +4,14 @@ use Common\Controller\HomebaseController;
 use Common\Model\OrdersModel;
 
 class IndexController extends HomebaseController{
-	
-	function index(){
-        $this->display();
-	}
 
-	//最终
-	function show(){
+    private  $model_order;
+    function index(){
+        $this->display();
+    }
+
+    //最终
+    function show(){
         $id = intval($_GET['id']);
         $model_order = M('orders');
         $order_info = $model_order->where(['id'=>intval($id)])->find();
@@ -47,22 +48,63 @@ class IndexController extends HomebaseController{
         $model_order = M('orders');
         $order_info = $model_order->where(['id'=>intval($id)])->find();
 
+        $model_product = M('Products');
+        $model_store = M('Stores');
+
+        $product_info = $model_product->where(['id'=>$order_info['product_id']])->field('id,title')->find();
+        $store_info = $model_store->where(['id'=>$order_info['store_id']])->find();
+
+        $order_info['product_title'] = $product_info['title'];
+        $order_info['time'] = OrdersModel::$_time_index[$order_info['time_index']];
+        $order_info['store_name'] = $store_info['store_name'];
+
+
         $this->assign('order_info',$order_info);
         $this->display(':detail');
     }
 
     function my(){
         //需要连表查询  @todo
-        $model_order = M('orders');
-        $order_list = $model_order->where(['member_id'=>$_SESSION['member_id']])->select();
+        $this->model_order = M('orders');
+
+        $count=$this->model_order->where(['member_id'=>$_SESSION['member_id']])->count();
+        $page = $this->page($count, 10);
+
+        $order_list = $this->model_order
+            ->where(['member_id'=>$_SESSION['member_id']])
+            ->limit($page->firstRow , $page->listRows)
+            ->order('id desc')
+            ->select();
+
+
+        $model_product = M('Products');
+
+        foreach ($order_list as &$val){
+            $product_info = $model_product->where(['id'=>$val['product_id']])->field('id,title')->find();
+
+            $val['product_title'] = $product_info['title'];
+
+            $val['time'] = OrdersModel::$_time_index[$val['time_index']];
+        }
+
         $this->assign('order_list',$order_list);
         $this->display(':my');
     }
 
-    function downImage(){
+    function downimage(){
         $id = intval($_GET['id']);
         $model_order = M('orders');
         $order_info = $model_order->where(['id'=>intval($id)])->find();
+
+        $model_product = M('Products');
+        $model_store   = M('Stores');
+
+        $product_info = $model_product->where(['id'=>$order_info['product_id']])->field('id,title')->find();
+        $store_info = $model_store->where(['id'=>$order_info['store_id']])->find();
+
+        $order_info['product_title'] = $product_info['title'];
+        $order_info['time'] = OrdersModel::$_time_index[$order_info['time_index']];
+        $order_info['store_name'] = $store_info['store_name'];
 
         $this->assign('order_info',$order_info);
         $this->display(':down');
