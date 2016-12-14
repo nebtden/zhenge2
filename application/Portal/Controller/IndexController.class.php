@@ -32,9 +32,20 @@ use Common\Model\StoreModel;
  * 首页
  */
 class IndexController extends HomebaseController {
-	
-    //首页 小夏是老猫除外最帅的男人了
+
+
+    private  $app_id = 'wx2a94b63fba2f544e';
+    private  $secret = '83e83a1a78965c8895bb4a86317e1485';
+    //首页
 	public function index() {
+        $open_id = false;
+        $redirect_url = urlencode($_SERVER['SERVER_NAME'].'/');
+        if(!$open_id){
+            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri='.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+            header("Location: $url");
+        }
+
+
 	    if(!$_SESSION['open_id']){
             $_SESSION['open_id'] = 1;
         }
@@ -69,7 +80,12 @@ class IndexController extends HomebaseController {
             return $access_token_list['value'];
         }else{
             $curl = new \Curl();
-            $result = $curl->get('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx2a94b63fba2f544e&secret=83e83a1a78965c8895bb4a86317e1485');
+
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.
+                $this->app_id.
+                '&secret='.
+                $this->secret;
+            $result = $curl->get($url);
             $result_array = json_decode($result,true);
             if($access_token_list){
                 $data = [];
