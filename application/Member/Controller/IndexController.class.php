@@ -18,11 +18,11 @@ class IndexController extends HomebaseController{
     function post(){
         if(IS_POST){
 
-            $where = [];
+            $where = array();
             $where['open_id']    =    $_SESSION['open_id'];
 
 
-            $data= [];
+            $data= array();
             $data['telephone'] = $_POST['telephone'];
             $data['email'] = $_POST['email'];
             $data['address'] = $_POST['address'];

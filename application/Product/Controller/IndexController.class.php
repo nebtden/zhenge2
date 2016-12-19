@@ -42,13 +42,13 @@ class IndexController extends HomebaseController{
     function getDateJson(){
         $model_order = M('Orders');
 
-        $conditon = [];
+        $conditon = array();
         $conditon['store_id'] = $_SESSION['store_id'];
         $conditon['date']     =['egt', date('Y-m-d')];
         $order_list=$model_order->field('count(*) as count,date')->where($conditon)->group('date')->select();
         $length = count(OrdersModel::$_time_index);
 
-        $return_list = [];
+        $return_list = array();
         foreach ($order_list as &$val){
             if($val['count']==$length){
                 $return_list[] =['d'=>$val['date']] ;
@@ -73,11 +73,11 @@ class IndexController extends HomebaseController{
         $condition['id'] = $_SESSION['store_id'];
         $store_info = $Store->where($condition)->find();
 
-        $conditon = [];
+        $conditon = array();
         $conditon['store_id'] = $_SESSION['store_id'];
         $conditon['date']     =   htmlspecialchars($_GET['date']);
         $order_list=$model_order->field('id,time_index')->where($conditon)->select();
-        $used_list = [];
+        $used_list = array();
         foreach ($order_list as $val){
             $used_list[] = $val['time_index'];
         }

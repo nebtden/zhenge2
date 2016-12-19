@@ -39,7 +39,7 @@ class IndexController extends HomebaseController {
     //首页
 	public function index() {
         $open_id = false;
-        $redirect_url = urlencode($_SERVER['SERVER_NAME'].'/');
+        $redirect_url = urlencode($_SERVER['SERVER_NAME'].'/index.php');
         if(!$open_id){
             $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri='.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
             header("Location: $url");
@@ -60,9 +60,10 @@ class IndexController extends HomebaseController {
 
         if($_GET['id']){
             $_SESSION['store_id'] = intval($_GET['id']);
-            $storeinfo = $model_store->where(['id'=>intval($_GET['id'])])->find();
+            $storeinfo = $model_store->where(array('id'=>intval($_GET['id'])))->find();
         }else{
-            $storeinfo = array_values($storelist)[0];
+            $store_list_values = array_values($storelist);
+            $storeinfo = $store_list_values[0];
             $_SESSION['store_id'] =$storeinfo['id'];
         }
 
@@ -75,7 +76,7 @@ class IndexController extends HomebaseController {
 
         //考虑是否会过期
         $setting = M('setting');
-        $access_token_list = $setting->where(['name'=>'access_token'])->find();
+        $access_token_list = $setting->where(array('name'=>'access_token'))->find();
         if($access_token_list && time()<$access_token_list['created_at']+$access_token_list['expires_in']){
             return $access_token_list['value'];
         }else{
@@ -88,7 +89,7 @@ class IndexController extends HomebaseController {
             $result = $curl->get($url);
             $result_array = json_decode($result,true);
             if($access_token_list){
-                $data = [];
+                $data = array();
                 $data['value'] = $result_array['access_token'];
                 $data['expires_in'] = $result_array['expires_in'];
                 $data['created_at'] = time();
