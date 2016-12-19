@@ -56,7 +56,7 @@
                     <li class="color4">未支付金额： <b class=" font18">¥{$order_info['order_amount']-$order_info['paid_amount']}</b></li>
                     <li class="color2"><span class="s_yf ">已付尾款：</span> <b class=" font18">¥0</b></li>
                 </ul></dd>
-                <dd class="dd_down"><a href="{:U('order/index/downimage',['id'=>$order_info['id']])}" class="btn">下载底片</a></dd>
+                <dd class="dd_down"><a href="{:U('order/index/downimage',array('id'=>$order_info['id']))}" class="btn">下载底片</a></dd>
             </dl></div>
     </div>
     <tc_include file="Public:nav" />
