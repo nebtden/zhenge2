@@ -38,12 +38,12 @@ class IndexController extends HomebaseController {
     private  $secret = '83e83a1a78965c8895bb4a86317e1485';
     //首页
 	public function index() {
-        $open_id = false;
+        $open_id = $_SESSION['open_id'];
         $redirect_url = urlencode($_SERVER['SERVER_NAME'].'/index.php');
-        if(!$open_id){
-            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri='.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
-            header("Location: $url");
-        }
+         if(!$open_id){
+             $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri=http%3A%2F%2F'.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+             header("Location: $url");
+         }
 
 
 	    if(!$_SESSION['open_id']){
