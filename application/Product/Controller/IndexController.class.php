@@ -23,10 +23,10 @@ class IndexController extends HomebaseController{
 
         $product_model = M('products');
         $model_store = M('stores');
-        $product_info=$product_model->where(['id'=>$id])->find();
+        $product_info=$product_model->where( array ('id'=>$id))->find();
 
 
-        $storeinfo = $model_store->where(['id'=>$_SESSION['store_id'] ])->find();
+        $storeinfo = $model_store->where( array ('id'=>$_SESSION['store_id'] ))->find();
         $this->assign('storeinfo',$storeinfo);
         $this->assign('product_info',$product_info);
         $this->display(':show');
@@ -101,7 +101,7 @@ class IndexController extends HomebaseController{
         $Order->create();
         $product_model = M('products');
         $id = $_SESSION['product_id'];
-        $product_info=$product_model->where(['id'=>$id])->find();
+        $product_info=$product_model->where( array ('id'=>$id))->find();
 
 
         $Order->order_sn = time().rand(100,999); // 设置默认的用户状态

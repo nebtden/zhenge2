@@ -41,7 +41,7 @@ class OrdersModel extends CommonModel{
 	}
 
 	public function getOrderinfo($id){
-	    $order_info = $this->where(['id'=>$id])->find();
+	    $order_info = $this->where( array ('id'=>$id))->find();
         return $order_info;
     }
 	

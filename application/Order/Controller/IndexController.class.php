@@ -14,7 +14,7 @@ class IndexController extends HomebaseController{
     function show(){
         $id = intval($_GET['id']);
         $model_order = M('orders');
-        $order_info = $model_order->where(['id'=>intval($id)])->find();
+        $order_info = $model_order->where( array ('id'=>intval($id)))->find();
         $order_info['time_value'] = OrdersModel::$_time_index[$order_info['time_index']];
 
         $Store = M("Stores"); // 实例化User对象
@@ -26,7 +26,7 @@ class IndexController extends HomebaseController{
 
         $product_model = M('products');
 
-        $product_info=$product_model->where(['id'=>$_SESSION['product_id']])->find();
+        $product_info=$product_model->where( array ('id'=>$_SESSION['product_id']))->find();
         $this->assign('order_info',$order_info);
         $this->assign('store_info',$store_info);
         $this->assign('product_info',$product_info);
@@ -37,7 +37,7 @@ class IndexController extends HomebaseController{
     function create(){
         $id = intval($_GET['id']);
         $model_order = M('orders');
-        $order_info = $model_order->where(['id'=>intval($id)])->find();
+        $order_info = $model_order->where( array ('id'=>intval($id)))->find();
 
 
         $this->display(':create');
@@ -46,13 +46,13 @@ class IndexController extends HomebaseController{
     function detail(){
         $id = intval($_GET['id']);
         $model_order = M('orders');
-        $order_info = $model_order->where(['id'=>intval($id)])->find();
+        $order_info = $model_order->where( array ('id'=>intval($id)))->find();
 
         $model_product = M('Products');
         $model_store = M('Stores');
 
-        $product_info = $model_product->where(['id'=>$order_info['product_id']])->field('id,title')->find();
-        $store_info = $model_store->where(['id'=>$order_info['store_id']])->find();
+        $product_info = $model_product->where( array ('id'=>$order_info['product_id']))->field('id,title')->find();
+        $store_info = $model_store->where( array ('id'=>$order_info['store_id']))->find();
 
         $order_info['product_title'] = $product_info['title'];
         $order_info['time'] = OrdersModel::$_time_index[$order_info['time_index']];
@@ -67,11 +67,11 @@ class IndexController extends HomebaseController{
         //需要连表查询  @todo
         $this->model_order = M('orders');
 
-        $count=$this->model_order->where(['member_id'=>$_SESSION['member_id']])->count();
+        $count=$this->model_order->where( array ('member_id'=>$_SESSION['member_id']))->count();
         $page = $this->page($count, 10);
 
         $order_list = $this->model_order
-            ->where(['member_id'=>$_SESSION['member_id']])
+            ->where( array ('member_id'=>$_SESSION['member_id']))
             ->limit($page->firstRow , $page->listRows)
             ->order('id desc')
             ->select();
@@ -80,7 +80,7 @@ class IndexController extends HomebaseController{
         $model_product = M('Products');
 
         foreach ($order_list as &$val){
-            $product_info = $model_product->where(['id'=>$val['product_id']])->field('id,title')->find();
+            $product_info = $model_product->where( array ('id'=>$val['product_id']))->field('id,title')->find();
 
             $val['product_title'] = $product_info['title'];
 
@@ -94,13 +94,13 @@ class IndexController extends HomebaseController{
     function downimage(){
         $id = intval($_GET['id']);
         $model_order = M('orders');
-        $order_info = $model_order->where(['id'=>intval($id)])->find();
+        $order_info = $model_order->where( array ('id'=>intval($id)))->find();
 
         $model_product = M('Products');
         $model_store   = M('Stores');
 
-        $product_info = $model_product->where(['id'=>$order_info['product_id']])->field('id,title')->find();
-        $store_info = $model_store->where(['id'=>$order_info['store_id']])->find();
+        $product_info = $model_product->where( array ('id'=>$order_info['product_id']))->field('id,title')->find();
+        $store_info = $model_store->where( array ('id'=>$order_info['store_id']))->find();
 
         $order_info['product_title'] = $product_info['title'];
         $order_info['time'] = OrdersModel::$_time_index[$order_info['time_index']];
