@@ -48,24 +48,35 @@
 
             <dl class="dl_ziliao s_radiobox">
                 <dd class="zl_tips color3">下一步，填写您的个人资料</dd>
-                <dd class="dd_tit clearfix"><p>*您的姓名</p><p>*您的性别</p></dd>
+                <dd class="dd_tit">*您的姓名</dd>
+                <dd class="dd_input">
+                    <span class="s_cell">
+                        <input type="text" value="{$member_info.name}" name="name" class="input" />
+                    </span>
+                </dd>
+                <dd class="dd_tit clearfix">
+                    <p>*您的性别</p></dd>
                 <dd class="dd_input clearfix">
-                    <input type="hidden" value="male">
-                    <span class="s_radio" data-value="female">先生</span>&nbsp;&nbsp;
-                    <span class="s_radio s_radio_ed" data-value="male">女生</span>
+                    <input type="hidden" name="sex" value="{$member_info.sex}">
+                    <span class="s_radio <eq name='member_info.sex' value='male'>
+                    s_radio_ed
+                    </eq>" data-value="male">先生</span>&nbsp;&nbsp;
+                    <span class="s_radio <eq name='member_info.sex' value='female'>
+                    s_radio_ed
+                    </eq>" data-value="female">女生</span>
                 </dd>
                 <dd class="dd_tit">*您的手机</dd>
                 <dd class="dd_input">
                     <span class="s_cell">
-                        <input type="text" value="" name="telephone" class="input" />
+                        <input type="text"  value="{$member_info.telephone}"  name="telephone" class="input" />
                     </span>
                 </dd>
                 <dd class="dd_tit">*您的邮箱</dd>
                 <dd class="dd_input">
-                    <input type="text" value="" name="email"  class="input" /></dd>
+                    <input type="text" value="{$member_info.email}" name="email"  class="input" /></dd>
                 <dd class="dd_tit">*您的收货地址</dd>
                 <dd class="dd_input">
-                    <input type="text" value="" name="address" class="input" /></dd><br>
+                    <input type="text" value="{$member_info.address}" name="address" class="input" /></dd><br>
                 <dd class="dd_line"></dd>
                 <dd class="btnbox">
                     <button class="btn" type="submit">提交订单</button>

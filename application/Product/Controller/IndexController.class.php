@@ -99,13 +99,15 @@ class IndexController extends HomebaseController{
         }
         $Order = M('Orders');
         $Order->create();
-        $product_model = M('products');
+        $product_model = M('Products');
         $id = $_SESSION['product_id'];
         $product_info=$product_model->where( array ('id'=>$id))->find();
 
 
         $Order->order_sn = time().rand(100,999); // 设置默认的用户状态
         $Order->order_amount = $product_info['price']; // 设置默认的用户状态
+
+
 
         $result = $Order->add();
         if($result){

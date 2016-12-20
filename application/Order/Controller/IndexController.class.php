@@ -23,11 +23,16 @@ class IndexController extends HomebaseController{
         // 把查询条件传入查询方法
         $store_info = $Store->where($condition)->find();
 
+        $open_id = $_SESSION['open_id'];
+        $model_members = M('Members');
+        $member_info = $model_members->where(array('open_id'=>$open_id))->find();
+
 
         $product_model = M('products');
 
         $product_info=$product_model->where( array ('id'=>$_SESSION['product_id']))->find();
         $this->assign('order_info',$order_info);
+        $this->assign('member_info',$member_info);
         $this->assign('store_info',$store_info);
         $this->assign('product_info',$product_info);
         $this->assign('money',C('money'));
@@ -38,6 +43,26 @@ class IndexController extends HomebaseController{
         $id = intval($_GET['id']);
         $model_order = M('orders');
         $order_info = $model_order->where( array ('id'=>intval($id)))->find();
+
+        $open_id = $_SESSION['open_id'];
+        $model_members = M('Members');
+        $menber_info = $model_members->where(array('open_id'=>$open_id))->find();
+        $data=[];
+
+        $data['name']  =$_POST['name'];
+        $data['address']  =$_POST['address'];
+        $data['email']  =$_POST['email'];
+        $data['telephone']  =$_POST['telephone'];
+        if(!$menber_info){
+            //创建用户
+            $data['open_id'] = $open_id;
+            $model_members->create($data);
+            $res =  $model_members->add();
+
+        }else{
+            //更新用户
+            $res =   $model_members->where(array('open_id'=>$open_id))->save($data);
+        }
 
 
         $this->display(':create');

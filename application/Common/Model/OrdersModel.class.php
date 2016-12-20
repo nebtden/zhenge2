@@ -1,11 +1,11 @@
 <?php
 namespace Common\Model;
 
-use Common\Model\CommonModel;
+
 
 class OrdersModel extends CommonModel{
 
-    public static $_time_index=[
+    public static $_time_index=array(
         21=>'10:30',
         22=>'11:00',
         23=>'11:30',
@@ -25,7 +25,7 @@ class OrdersModel extends CommonModel{
         37=>'18:30',
         38=>'19:00',
         39=>'19:30',
-    ];
+    );
 
 	
 	//自动验证
