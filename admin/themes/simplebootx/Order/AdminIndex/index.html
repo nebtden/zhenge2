@@ -3,10 +3,10 @@
 <body>
 	<div class="wrap js-check-wrap">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="javascript:;">{:L('PORTAL_ADMINPOST_INDEX')}</a></li>
-			<li><a href="{:U('AdminPost/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">{:L('PORTAL_ADMINPOST_ADD')}</a></li>
+			<li class="active"><a href="javascript:;">订单列表</a></li>
+			<!--<li><a href="{:U('AdminPost/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">订单添加及编辑</a></li>-->
 		</ul>
-		<form class="well form-search" method="post" action="{:U('AdminPost/index')}">
+		<form class="well form-search" method="post" action="{:U('AdminOrder/index')}" >
 			 &nbsp;
 			 订单号：
 			<input type="text" name="order_sn" style="width: 200px;" value="{$formget.order_sn|default=''}" placeholder="请输入订单号...">

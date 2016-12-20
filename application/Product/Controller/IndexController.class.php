@@ -44,14 +44,14 @@ class IndexController extends HomebaseController{
 
         $conditon = array();
         $conditon['store_id'] = $_SESSION['store_id'];
-        $conditon['date']     =['egt', date('Y-m-d')];
+        $conditon['date']     =array('egt', date('Y-m-d'));
         $order_list=$model_order->field('count(*) as count,date')->where($conditon)->group('date')->select();
         $length = count(OrdersModel::$_time_index);
 
         $return_list = array();
         foreach ($order_list as &$val){
             if($val['count']==$length){
-                $return_list[] =['d'=>$val['date']] ;
+                $return_list[] =array('d'=>$val['date']) ;
             }
         }
         echo json_encode($return_list);
@@ -109,7 +109,7 @@ class IndexController extends HomebaseController{
 
         $result = $Order->add();
         if($result){
-            redirect(U('order/index/show',['id'=>$result]));
+            redirect(U('order/index/show',array('id'=>$result)));
         }else{
             $this->error($Order->getError());
         }
