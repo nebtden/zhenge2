@@ -40,7 +40,7 @@ class IndexController extends HomebaseController{
     }
 
     function create(){
-        $id = intval($_GET['id']);
+        $id = intval($_POST['id']);
         $model_order = M('orders');
         $order_info = $model_order->where( array ('id'=>intval($id)))->find();
 
@@ -53,6 +53,7 @@ class IndexController extends HomebaseController{
         $data['address']  =$_POST['address'];
         $data['email']  =$_POST['email'];
         $data['telephone']  =$_POST['telephone'];
+        $res = $model_order->where( array ('id'=>intval($id)))->save($data);
         if(!$menber_info){
             //创建用户
             $data['open_id'] = $open_id;

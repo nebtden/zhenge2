@@ -14,6 +14,7 @@
     <div class="wrap amcontent ">
         <div class="order_show">
             <form method="post" action="{:U('order/index/create')}">
+                <input type="hidden" name="id" value="{$Think.get.id}" >
             <dl class="o_show o_show_confirm">
                 <dt>确认订单</dt>
                 <dd>
