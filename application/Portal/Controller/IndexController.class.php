@@ -27,6 +27,7 @@ namespace Portal\Controller;
 use Common\Controller\HomebaseController;
 use Common\Model\SettingModel;
 use Common\Model\StoreModel;
+use Think\Log;
 
 /**
  * 首页
@@ -37,22 +38,41 @@ class IndexController extends HomebaseController {
     private  $app_id = 'wx2a94b63fba2f544e';
     private  $secret = '83e83a1a78965c8895bb4a86317e1485';
     //首页
-	public function index() {
-        $open_id = $_SESSION['open_id'];
-        /*$redirect_url = urlencode($_SERVER['SERVER_NAME'].'/index.php');
-         if(!$open_id){
-             $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri=http%3A%2F%2F'.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
-             header("Location: $url");
-         }*/
+    public function index() {
+
+
+        $tools = new \JsApiPay();
+        $open_id = $tools->GetOpenid();
+        if(!$open_id){
+            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri=http%3A%2F%2F'.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+            header("Location: $url");
+        }else{
+            $_SESSION['open_id'] = $open_id;
+            Log::record($open_id);
+        }
         //$_POST 通知
+        if($_POST){
+
+
+            //初始化日志
+            $logHandler= new \CLogFileHandler(SITE_PATH."example/logs/".date('Y-m-d').'.log');
+            $log =\Log::Init($logHandler, 15);
+
+
+            \Log::DEBUG("begin notify");
+            $notify = new \WxPayNotify();
+            $notify->Handle(false);
+
+
+        }
 
 
 
 
-	    if(!$_SESSION['open_id']){
+        if(!$_SESSION['open_id']){
             $_SESSION['open_id'] = 1;
         }
-    	$this->display(":index");
+        $this->display(":index");
     }
 
     public function step2(){
