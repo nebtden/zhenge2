@@ -1214,7 +1214,7 @@ function xml_encode($data, $root='think', $item='item', $attr='', $id='id', $enc
     }
     $attr   = trim($attr);
     $attr   = empty($attr) ? '' : " {$attr}";
-    $xml    = "<?xml version=\"1.0\" encoding=\"{$encoding}\"?>";
+    $xml   = '';
     $xml   .= "<{$root}{$attr}>";
     $xml   .= data_to_xml($data, $item, $id);
     $xml   .= "</{$root}>";
