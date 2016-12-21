@@ -67,7 +67,7 @@ class IndexController extends HomebaseController{
         $input = new \WxPayUnifiedOrder();
         $input->SetBody("test");
         $input->SetAttach("test");
-        $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
+        $input->SetOut_trade_no(\WxPayConfig::MCHID.date("YmdHis"));
         $input->SetTotal_fee("1");
         $input->SetTime_start(date("YmdHis"));
         $input->SetTime_expire(date("YmdHis", time() + 600));
@@ -75,13 +75,13 @@ class IndexController extends HomebaseController{
         $input->SetNotify_url($_SERVER['SERVER_NAME']."/index.php");
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
-        $order = WxPayApi::unifiedOrder($input);
+        $order = \WxPayApi::unifiedOrder($input);
         echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
         printf_info($order);
         $jsApiParameters = $tools->GetJsApiParameters($order);
 
 //获取共享收货地址js函数参数
-        $editAddress = $tools->GetEditAddressParameters();
+       // $editAddress = $tools->GetEditAddressParameters();
 
 //③、在支持成功回调通知中处理成功之后的事宜，见 notify.php
         /**
@@ -91,7 +91,7 @@ class IndexController extends HomebaseController{
          * 参考http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html）
          */
         $this->assign('jsApiParameters',$jsApiParameters);
-        $this->display(':show');
+        $this->display(':create');
 
     }
 
