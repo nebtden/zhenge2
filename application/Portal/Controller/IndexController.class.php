@@ -50,6 +50,19 @@ class IndexController extends HomebaseController {
             $_SESSION['open_id'] = $open_id;
             Log::record($open_id);
         }
+
+        $open_id = $_SESSION['open_id'];
+        $model_members = M('Members');
+        $menber_info = $model_members->where(array('open_id'=>$open_id))->find();
+        if(!$menber_info){
+            //创建用户
+            $data['open_id'] = $open_id;
+            $model_members->create($data);
+            $model_members->add();
+        }
+
+
+
         //$_POST 通知
         if($_POST){
 

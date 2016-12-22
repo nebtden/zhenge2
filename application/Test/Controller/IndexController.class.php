@@ -1,5 +1,5 @@
 <?php
-namespace Order\Controller;
+namespace Test\Controller;
 use Common\Controller\HomebaseController;
 use Common\Model\OrdersModel;
 use Think\Log;
@@ -13,7 +13,6 @@ class IndexController extends HomebaseController{
 
     private  $model_order;
     function index(){
-
         $this->display();
     }
 
