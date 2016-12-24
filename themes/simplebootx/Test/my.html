@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="m">
+<head>
+    <title>我的订单</title>
+    <tc_include file="Public:head" />
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+    <header class="demo-header widget-hd amcontent">
+        <div class="head">
+            <span class="bj-icon ic-head-back"  onclick="history.back()">上一页</span>
+            <h2 class="h2_logo"></h2>
+            <span class="bj-icon ic_head_menu" id="s_menu"></span>
+        </div>
+    </header>
+    <div class="wrap amcontent obg">
+        <div class="tit_order"><span class="ic_order color1">我的订单</span></div>
+        <div class="order_list">
+            <if condition = "$order_list">
+                <volist name="order_list" id="vo"  >
+
+
+
+                    <dl class="d_order">
+                        <eq name="vo.order_state" value="2">
+                            <span class="s_zt">已完成</span>
+                        </eq>
+                        <eq name="vo.order_state" value="1">
+                            <span class="s_zt s_zt_zf">已支付</span>
+                        </eq>
+                        <eq name="vo.order_state" value="0">
+                            <span class="s_zt">已取消</span>
+                        </eq>
+
+                        <dt>{$vo.name} <br>
+                            {$vo.date} {$vo.time}<br>
+                            {$vo.address}</dt>
+                        <dd class="dd_z">{$vo.product_title}</dd>
+                        <dd class="dd_detail">
+                            <a href="{:U('order/index/detail',array('id'=>$vo['id']))}">
+                                查看订单详情 >
+                            </a>
+                        </dd>
+                    </dl>
+                </volist>
+
+                <else />
+                <dl>
+                    您暂时没有任何订单！
+                </dl>
+            </if>
+
+
+        </div>
+
+    </div>
+    <tc_include file="Public:nav" />
+</div>
+
+<!--page-->
+
+<script>
+
+</script>
+</body>
+</html>

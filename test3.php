@@ -5,4 +5,8 @@
  * Date: 2016/12/19
  * Time: 20:18
  */
-zhenimage.com/index.php?g=product&m=index&a=show&id=10
+
+
+$_SESSION['order_info'] = $order_info;
+$url = $_SERVER['SERVER_NAME'].'/index.php';
+header("Location: http://$url");

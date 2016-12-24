@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="m">
+<head>
+    <title>确定订单</title>
+    <tc_include file="Public:head" />
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+    <header class="demo-header widget-hd amcontent">
+        <div class="head"><h2 class="h2_logo">
+
+        </h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
+    </header>
+    <div class="wrap amcontent ">
+        <div class="order_show">
+            <form method="post" action="{:U('order/index/create')}">
+                <input type="hidden" name="id" value="{$Think.get.id}" >
+            <dl class="o_show o_show_confirm">
+                <dt>确认订单</dt>
+                <dd>
+                    <ul class="ul_tb ">
+                        <li><label for="">订单编号：</label><div class="d_input color1">{$order_info.order_sn}</div></li>
+                        <li><label for="">拍摄日期：</label><div class="d_input color1">{$order_info.date} </div></li>
+                        <li><label for="">拍摄时间：</label><div class="d_input color1">{$order_info.time_value}</div></li>
+                        <li><label for="">拍摄门店：</label><div class="d_input color1">{$store_info.store_name}  <span class="ic_md ">门店信息</span></div></li>
+                    </ul>
+                    <ul class="ul_tb ul_tb_b2">
+                        <li><label for=""><strong>套餐信息</strong></label><div class="d_input color1 ">{$product_info.title} </div></li>
+                        <li><label for=""></label><div class="d_input color3 font12">套餐可至门店更改，以最终拍摄为准</div></li>
+                        <li><label for=""><strong>预计耗时</strong></label><div class="d_input color1">{$product_info.time}</div></li>
+                        <li><label for=""></label><div class="d_input color3 font12">时长仅供参考，请预留充足的时间</div></li>
+                        <li><label for="">
+                            <strong>优惠码：</strong></label><div class="d_input">
+                            <input type="text" value="" size="20" class="input" /> 可不填</div></li>
+                    </ul>
+                    <ul class="ul_money ul_money2 clearfix">
+                        <li>订单总金额： <b class="color3 font18">¥{$product_info.price}</b></li>
+                        <li class="color2"><span class=" ">需付订金：</span> <b class=" font18">¥{$money};</b></li>
+                    </ul>
+                </dd>
+                <dd class="dd_gz">请核对订单内容，付款后若取消订单，订金将受损失<br>
+                    <span class="s_arrob">查看退款规则</span>
+                    <div class="box_gz">
+                        退款规则
+                    </div>
+                </dd>
+            </dl>
+
+
+            <dl class="dl_ziliao s_radiobox">
+                <dd class="zl_tips color3">下一步，填写您的个人资料</dd>
+                <dd class="dd_tit">*您的姓名</dd>
+                <dd class="dd_input">
+                    <span class="s_cell">
+                        <input type="text" value="{$member_info.name}" name="name" class="input" />
+                    </span>
+                </dd>
+                <dd class="dd_tit clearfix">
+                    <p>*您的性别</p></dd>
+                <dd class="dd_input clearfix">
+                    <input type="hidden" name="sex" value="{$member_info.sex}">
+                    <span class="s_radio <eq name='member_info.sex' value='male'>
+                    s_radio_ed
+                    </eq>" data-value="male">先生</span>&nbsp;&nbsp;
+                    <span class="s_radio <eq name='member_info.sex' value='female'>
+                    s_radio_ed
+                    </eq>" data-value="female">女生</span>
+                </dd>
+                <dd class="dd_tit">*您的手机</dd>
+                <dd class="dd_input">
+                    <span class="s_cell">
+                        <input type="text"  value="{$member_info.telephone}"  name="telephone" class="input" />
+                    </span>
+                </dd>
+                <dd class="dd_tit">*您的邮箱</dd>
+                <dd class="dd_input">
+                    <input type="text" value="{$member_info.email}" name="email"  class="input" /></dd>
+                <dd class="dd_tit">*您的收货地址</dd>
+                <dd class="dd_input">
+                    <input type="text" value="{$member_info.address}" name="address" class="input" /></dd><br>
+                <dd class="dd_line"></dd>
+                <dd class="btnbox">
+                    <button class="btn" type="submit">提交订单</button>
+                </dd>
+            </dl>
+            </form>
+        </div>
+    </div>
+    <tc_include file="Public:nav" />
+</div>
+
+<!--page-->
+<script>
+    $(function(){
+        $(".s_radiobox .s_radio").click(function(event){
+            $(this).addClass("s_radio_ed").siblings(".s_radio").removeClass("s_radio_ed");
+        });
+        $(".s_arrob").click(function(){
+            $(".box_gz").toggle();
+        })
+    });
+</script>
+</body>
+</html>

@@ -23,7 +23,7 @@ class WxPayApi
 	 */
 	public static function unifiedOrder($inputObj, $timeOut = 6)
 	{
-		$url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+		$url = "https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder";
 		//检测必填参数
 		if(!$inputObj->IsOut_trade_noSet()) {
 			throw new WxPayException("缺少统一支付接口必填参数out_trade_no！");
@@ -77,7 +77,7 @@ class WxPayApi
 	 */
 	public static function orderQuery($inputObj, $timeOut = 6)
 	{
-		$url = "https://api.mch.weixin.qq.com/pay/orderquery";
+		$url = "https://api.mch.weixin.qq.com/sandboxnew/pay/orderquery";
 		//检测必填参数
 		if(!$inputObj->IsOut_trade_noSet() && !$inputObj->IsTransaction_idSet()) {
 			throw new WxPayException("订单查询接口中，out_trade_no、transaction_id至少填一个！");
@@ -108,7 +108,7 @@ class WxPayApi
 	 */
 	public static function closeOrder($inputObj, $timeOut = 6)
 	{
-		$url = "https://api.mch.weixin.qq.com/pay/closeorder";
+		$url = "https://api.mch.weixin.qq.com/sandboxnew/pay/closeorder";
 		//检测必填参数
 		if(!$inputObj->IsOut_trade_noSet()) {
 			throw new WxPayException("订单查询接口中，out_trade_no必填！");
@@ -181,7 +181,7 @@ class WxPayApi
 	 */
 	public static function refundQuery($inputObj, $timeOut = 6)
 	{
-		$url = "https://api.mch.weixin.qq.com/pay/refundquery";
+		$url = "https://api.mch.weixin.qq.com/sandboxnew/pay/refundquery";
 		//检测必填参数
 		if(!$inputObj->IsOut_refund_noSet() &&
 			!$inputObj->IsOut_trade_noSet() &&
@@ -214,7 +214,7 @@ class WxPayApi
 	 */
 	public static function downloadBill($inputObj, $timeOut = 6)
 	{
-		$url = "https://api.mch.weixin.qq.com/pay/downloadbill";
+		$url = "https://api.mch.weixin.qq.com/sandboxnew/pay/downloadbill";
 		//检测必填参数
 		if(!$inputObj->IsBill_dateSet()) {
 			throw new WxPayException("对账单接口中，缺少必填参数bill_date！");
@@ -244,7 +244,7 @@ class WxPayApi
 	 */
 	public static function micropay($inputObj, $timeOut = 10)
 	{
-		$url = "https://api.mch.weixin.qq.com/pay/micropay";
+		$url = "https://api.mch.weixin.qq.com/sandboxnew/pay/micropay";
 		//检测必填参数
 		if(!$inputObj->IsBodySet()) {
 			throw new WxPayException("提交被扫支付API接口中，缺少必填参数body！");

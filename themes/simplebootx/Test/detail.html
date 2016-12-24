@@ -1,0 +1,68 @@
+<!doctype html>
+<html class="m">
+<head>
+    <title>订单详情</title>
+    <tc_include file="Public:head" />
+</head>
+<body class="">
+<div class="am-page" id="mobile-index">
+    <header class="demo-header widget-hd amcontent">
+        <div class="head">
+            <span class="bj-icon ic-head-back"  onclick="history.back()">上一页</span>
+            <h2 class="h2_logo"></h2>
+            <span class="bj-icon ic_head_menu" id="s_menu"></span>
+        </div>
+    </header>
+    <div class="wrap amcontent obg">
+        <div class="order_show">
+            <dl class="o_show">
+                <dt>订单详情</dt>
+
+                <dd>
+                    <ul class="ul_tb">
+                        <li><label for="">订单编号：</label>
+                            <div class="d_input color3">{$order_info.order_sn}
+                                <span class="s_wan">已完成订单</span>
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">创建时间：</label>
+                            <div class="d_input color3">
+                                {$order_info.created_at}
+                            </div>
+                        </li>
+                    </ul>
+                </dd>
+                <dd>
+                    <strong>拍摄信息</strong>
+                    <ul class="ul_tb ul_tb_b">
+                        <li><label for="">姓       名：</label><div class="d_input color1"> {$order_info.name}</div></li>
+                        <li><label for="">联系方式：</label><div class="d_input color1"> {$order_info.telephone}</div></li>
+                        <li><label for="">拍摄日期：</label><div class="d_input color1">{$order_info.date} {$order_info.time}</div></li>
+                        <li><label for="">拍摄门店：</label><div class="d_input color1">{$order_info.store_name}  <span class="ic_md ">门店信息</span></div></li>
+                    </ul>
+                    <ul class="ul_tb ul_tb_b">
+                        <li><label for=""><strong>套餐信息</strong></label><div class="d_input color1">{$order_info.product_title}   X 1份</div></li>
+                        <li><label for=""></label><div class="d_input color3">套餐可至门店更改，以最终拍摄为准</div></li>
+                        <li><label for=""><strong>耗时</strong></label><div class="d_input color1">约1小时</div></li>
+                        <li><label for=""></label><div class="d_input color3">时长仅供参考，请预留充足的时间</div></li>
+                    </ul>
+                    <ul class="ul_money clearfix">
+                        <li>订单总金额： <b class="color1 font18">¥{$order_info.order_amount}</b></li>
+                        <li class="color2"><span class="s_yf ">已付订金：</span> <b class=" font18">¥{$order_info.paid_amount}</b></li>
+                    </ul>
+                </dd>
+                <dd><ul class="ul_money clearfix">
+                    <li class="color4">未支付金额： <b class=" font18">¥{$order_info['order_amount']-$order_info['paid_amount']}</b></li>
+                    <li class="color2"><span class="s_yf ">已付尾款：</span> <b class=" font18">¥0</b></li>
+                </ul></dd>
+                <dd class="dd_down"><a href="{:U('order/index/downimage',array('id'=>$order_info['id']))}" class="btn">下载底片</a></dd>
+            </dl></div>
+    </div>
+    <tc_include file="Public:nav" />
+
+</div>
+
+
+</body>
+</html>

@@ -53,10 +53,16 @@ class IndexController extends HomebaseController{
         }
     }
 
+    public function wxpay2(){
+        include SITE_PATH.'example/jsapi.php';
+    }
+
     public  function  wxpay(){
+
+
         include SITE_PATH.'example/jsapi.php';
 
-        /*require_once SITE_PATH."lib/WxPay.Api.php";
+        require_once SITE_PATH."lib/WxPay.Api.php";
         require_once SITE_PATH."example/WxPay.JsApiPay.php";
         require_once SITE_PATH.'example/log.php';
 
@@ -88,21 +94,21 @@ class IndexController extends HomebaseController{
         $jsApiParameters = $tools->GetJsApiParameters($order);
 
 //获取共享收货地址js函数参数
-         $editAddress = $tools->GetEditAddressParameters();
+        $editAddress = $tools->GetEditAddressParameters();
 
 //③、在支持成功回调通知中处理成功之后的事宜，见 notify.php
 
-         * 注意：
-         * 1、当你的回调地址不可访问的时候，回调通知会失败，可以通过查询订单来确认支付是否成功
-         * 2、jsapi支付时需要填入用户openid，WxPay.JsApiPay.php中有获取openid流程 （文档可以参考微信公众平台“网页授权接口”，
-         * 参考http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html）
+//         * 注意：
+//         * 1、当你的回调地址不可访问的时候，回调通知会失败，可以通过查询订单来确认支付是否成功
+//         * 2、jsapi支付时需要填入用户openid，WxPay.JsApiPay.php中有获取openid流程 （文档可以参考微信公众平台“网页授权接口”，
+//         * 参考http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html）
 
         $this->printf_info($jsApiParameters);
         $this->assign('jsApiParameters',$jsApiParameters);
         $this->assign('editAddress',$editAddress);
         Log::record($jsApiParameters);
         $this->display(':create');
-        */
+
 
     }
 
@@ -112,7 +118,7 @@ class IndexController extends HomebaseController{
         $model_order = M('orders');
         $order_info = $model_order->where( array ('id'=>intval($id)))->find();
 
-        $open_id = $_SESSION['open_id'];
+        $open_id = $_SESSION['open_id'] =1;
         $model_members = M('Members');
         $menber_info = $model_members->where(array('open_id'=>$open_id))->find();
         $data=array();
@@ -132,9 +138,10 @@ class IndexController extends HomebaseController{
             //更新用户
             $res =   $model_members->where(array('open_id'=>$open_id))->save($data);
         }
+        $_SESSION['order_info'] = $order_info;
+        $url = $_SERVER['SERVER_NAME'].'/example/jsapi.php';
+        header("Location: http://$url");
 
-        include SITE_PATH.'example/jsapi.php';
-//        $this->display(':create');
     }
 
 
