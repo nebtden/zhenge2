@@ -5,6 +5,15 @@ namespace Common\Model;
 
 class OrdersModel extends CommonModel{
 
+    public static $_state = array(
+        -1=>'订单取消',
+        0=>'订单生成',
+        1=>'支付完成',
+        2=>'订单完成',
+
+
+
+    );
     public static $_time_index=array(
         21=>'10:30',
         22=>'11:00',

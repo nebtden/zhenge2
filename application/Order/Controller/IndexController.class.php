@@ -12,6 +12,8 @@ class IndexController extends HomebaseController{
 
 
     private  $model_order;
+    private  $model_member;
+
     function index(){
 
         $this->display();
@@ -114,7 +116,7 @@ class IndexController extends HomebaseController{
 
     function create(){
         $id = intval($_POST['id']);
-        $id= 4;
+//        $id= 4;
         $model_order = M('orders');
         $order_info = $model_order->where( array ('id'=>intval($id)))->find();
 
@@ -124,6 +126,7 @@ class IndexController extends HomebaseController{
         $data=array();
 
         $data['name']  =$_POST['name'];
+        $data['voucher']  =$_POST['voucher'];
         $data['address']  =$_POST['address'];
         $data['email']  =$_POST['email'];
         $data['telephone']  =$_POST['telephone'];
@@ -183,14 +186,29 @@ class IndexController extends HomebaseController{
     }
 
     function my(){
-        //需要连表查询  @todo
+        $this->model_member = M('Members');
         $this->model_order = M('orders');
+        require_once SITE_PATH."lib/WxPay.Api.php";
+        require_once SITE_PATH."example/WxPay.JsApiPay.php";
 
-        $count=$this->model_order->where( array ('member_id'=>$_SESSION['member_id']))->count();
+        $tools = new \JsApiPay();
+        $open_id = $tools->GetOpenid();
+        $member_info = $this->model_member->where(
+            array ('open_id'=>$open_id)
+        )->find();
+
+        $count=$this->model_order->where( array ('member_id'=>$member_info['id']))->count();
+
+
+        //需要连表查询  @todo
+
+
+
+        $count=$this->model_order->where( array ('member_id'=>$member_info['id']))->count();
         $page = $this->page($count, 10);
 
         $order_list = $this->model_order
-            ->where( array ('member_id'=>$_SESSION['member_id']))
+            ->where( array ('member_id'=>$member_info['id']))
             ->limit($page->firstRow , $page->listRows)
             ->order('id desc')
             ->select();

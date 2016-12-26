@@ -21,15 +21,21 @@ function printf_info($data)
 }
 
 //①、获取用户openid
-$tools = new JsApiPay();
-$openId = $tools->GetOpenid();
+if(!$_SESSION['open_id']){
+    $tools = new JsApiPay();
+    $openId = $tools->GetOpenid();
+}else{
+    $openId = $_SESSION['open_id'];
+}
+
 
 //②、统一下单
+$order_info = $_SESSION['order_info'];
 $input = new WxPayUnifiedOrder();
-$input->SetBody("test");
-$input->SetAttach("test");
-$input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
-$input->SetTotal_fee("101");
+$input->SetBody("甄阁押金预定");
+$input->SetAttach($order_info['store_name']);
+$input->SetOut_trade_no($order_info['order_sn']);
+$input->SetTotal_fee($order_info['paid_money']*100);
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");
@@ -37,8 +43,8 @@ $input->SetNotify_url("http://zhenimage.com/wx/example/notify.php");
 $input->SetTrade_type("JSAPI");
 $input->SetOpenid($openId);
 $order = WxPayApi::unifiedOrder($input);
-echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
-printf_info($order);
+//echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
+//printf_info($order);
 $jsApiParameters = $tools->GetJsApiParameters($order);
 
 //获取共享收货地址js函数参数
@@ -56,43 +62,100 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/> 
-    <title>微信支付样例-支付</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>微信支付</title>
     <script type="text/javascript">
-	//调用微信JS api 支付
-	function jsApiCall()
-	{
-		WeixinJSBridge.invoke(
-			'getBrandWCPayRequest',
-			<?php echo $jsApiParameters; ?>,
-			function(res){
-				WeixinJSBridge.log(res.err_msg);
-				alert(res.err_code+res.err_desc+res.err_msg);
-			}
-		);
-	}
+        //调用微信JS api 支付
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                <?php echo $jsApiParameters; ?>,
+                function(res){
+                    WeixinJSBridge.log(res.err_msg);
+                    alert(res.err_code+res.err_desc+res.err_msg);
+                }
+            );
+        }
 
-	function callpay()
-	{
-		if (typeof WeixinJSBridge == "undefined"){
-		    if( document.addEventListener ){
-		        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
-		    }else if (document.attachEvent){
-		        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
-		        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
-		    }
-		}else{
-		    jsApiCall();
-		}
-	}
-	</script>
+        function callpay()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        }
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <meta name="renderer" content="webkit">
+
+    <link rel="stylesheet" href="/themes/simplebootx/Public/style/css/base.css">
+    <link rel="stylesheet" href="/themes/simplebootx/Public/style/css/tlp.css">
+
+
+    <script type="text/javascript" src="/themes/simplebootx/Public/style/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="/themes/simplebootx/Public/style/js/base.js"></script>
+    <script type="text/javascript" src="/themes/simplebootx/Public/style/js/jquery.datePicker-min.js"></script>
+    <link type="text/css" href="/themes/simplebootx/Public/style/css/rili.css" rel="stylesheet" />
 
 </head>
 <body>
-    <br/>
-    <font color="#9ACD32"><b>该笔订单支付金额为<span style="color:#f00;font-size:50px">1分</span>钱</b></font><br/><br/>
-	<div align="center">
-		<button style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" >立即支付</button>
-	</div>
+<header class="demo-header widget-hd amcontent">
+    <div class="head">
+        <!--<span class="bj-icon ic-head-back" onclick="history.back()"> 上一页</span>-->
+        <h2 class="h2_logo"></h2>
+        <span class="bj-icon ic_head_menu" id="s_menu"></span>
+    </div>
+</header>
+<div class="wrap amcontent">
+
+    <dl class="dl_otips">
+
+        <dt class="color1">支付提示<br>
+            档期将为您保留20分钟，请尽快支付。</dt>
+
+        <dd class="color3">支付剩余时间 </dd>
+        <dd class="dd_time">17:54</dd>
+
+        <dd class="color3">请您在剩余时间内完成支付，否则订单将被取消
+            您也可以在“我的订单”中查看或取消该订单</dd>
+
+        <dd><span class="ic_gz">查看退款规则</span></dd>
+
+        <dd><span class="btn_wx"><i>微信支付</i></span></dd>
+        <dd class="dd_line"></dd>
+
+        <dd class="dd_btn">
+            <button type="button" onclick="callpay()"  class="btn2">我的订单</button>
+        </dd>
+
+    </dl>
+</div>
+<nav id="menu">
+    <ul class="menu_ku">
+        <li class="" data-href="/index.php"><span class="menu_yy">开始预约</span></li>
+        <li class="" data-href="/index.php?g=order&m=index&a=my"><span class="menu_myorder">我的订单</span></li>
+        <li class="" data-href="/index.php?g=member&m=index&a=index""><span class="menu_ziliao">个人资料</span></li>
+        <li class="" data-href="/index.php?g=&m=article&a=index&id=1&cid=1"><span class="menu_mend">门店地址</span></li>
+        <li class="" data-href="/index.php?g=&m=article&a=index&id=3&cid=1"><span class="menu_xuz">拍摄须知</span></li>
+    </ul>
+</nav>
+<div class="bMask"></div>
+<script>
+    $(function () {
+        $('#menu li').click(function () {
+            window.location = $(this).data('href');
+        })
+    });
+
+</script>
 </body>
 </html>

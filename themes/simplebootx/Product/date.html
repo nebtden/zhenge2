@@ -8,7 +8,7 @@
 <div class="am-page" id="mobile-index">
     <header class="demo-header widget-hd amcontent">
         <div class="head">
-            <span class="bj-icon ic-head-back" onclick="history.back()">上一页</span>
+            <span class="bj-icon ic-head-back" onclick="history.back()"><!-- 上一页  --></span>
             <h2 class="h2_logo"></h2>
             <span class="bj-icon ic_head_menu" id="s_menu">
 
@@ -51,12 +51,7 @@
                         inline:true,
                         selectMultiple:false,
                         renderCallback:function(y, m, B, p){
-                            var date = 0;
-                            if(m.getDate()<10){
-                                date = '0'+m.getDate();
-                            }else{
-                                date = m.getDate();
-                            }
+                            var date = m.getDate();
                             var str =m.getFullYear()+"-"+(m.getMonth()+1)+"-"+date;
                             $.each(datadata,function(commentIndex, datadata2) {
                                 if (str==datadata2.d) {

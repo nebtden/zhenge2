@@ -51,7 +51,9 @@ class IndexController extends HomebaseController{
         $return_list = array();
         foreach ($order_list as &$val){
             if($val['count']==$length){
-                $return_list[] =array('d'=>$val['date']) ;
+                $date_array = explode('-',$val['data']);
+                $date = $date_array[0].'-'.intval($date_array[1]).'-'.intval($date_array[2]);
+                $return_list[] =array('d'=>$date) ;
             }
         }
         echo json_encode($return_list);
@@ -107,7 +109,8 @@ class IndexController extends HomebaseController{
         $Order->order_sn = time().rand(100,999); // 设置默认的用户状态
         $Order->order_amount = $product_info['price']; // 设置默认的用户状态
 
-
+        $Order->paid_amount = C('money');
+        $Order->state = 0;
 
         $result = $Order->add();
         if($result){

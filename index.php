@@ -55,10 +55,10 @@ if(file_exists(UC_CLIENT_ROOT."config.inc.php")){
 	include UC_CLIENT_ROOT."config.inc.php";
 }
 
-require_once SITE_PATH."lib/WxPay.Api.php";
-require_once SITE_PATH."lib/WxPay.Notify.php";
-require_once SITE_PATH.'example/log.php';
-require_once SITE_PATH."example/WxPay.JsApiPay.php";
+//require_once SITE_PATH."lib/WxPay.Api.php";
+//require_once SITE_PATH."lib/WxPay.Notify.php";
+//require_once SITE_PATH.'example/log.php';
+//require_once SITE_PATH."example/WxPay.JsApiPay.php";
 
 //载入框架核心文件
 require SPAPP_PATH.'Core/ThinkPHP.php';

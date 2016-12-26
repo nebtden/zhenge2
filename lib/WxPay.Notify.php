@@ -5,6 +5,10 @@
  * @author widyhu
  *
  */
+if(!defined('SITE_PATH')){
+    define('SITE_PATH', dirname(dirname(__FILE__))."/");
+}
+require_once SITE_PATH."lib/WxPay.Data.php";
 class WxPayNotify extends WxPayNotifyReply
 {
 	/**
