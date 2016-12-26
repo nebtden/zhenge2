@@ -1,6 +1,8 @@
 <?php
-require_once "../lib/WxPay.Api.php";
-require_once "../lib/WxPay.Notify.php";
+if(!defined('SITE_PATH')){
+    define('SITE_PATH', dirname(dirname(__FILE__))."/");
+}
+require_once SITE_PATH."lib/WxPay.Api.php";
 /**
  * 
  * JSAPI支付实现类
@@ -80,9 +82,7 @@ class JsApiPay
 		$jsapi->SetPackage("prepay_id=" . $UnifiedOrderResult['prepay_id']);
 		$jsapi->SetSignType("MD5");
 		$jsapi->SetPaySign($jsapi->MakeSign());
-
 		$parameters = json_encode($jsapi->GetValues());
-        \Log::DEBUG("1:" . $parameters);
 		return $parameters;
 	}
 	

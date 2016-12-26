@@ -39,7 +39,8 @@ class IndexController extends HomebaseController {
     private  $secret = '83e83a1a78965c8895bb4a86317e1485';
     //首页
     public function index() {
-
+        require_once SITE_PATH."lib/WxPay.Api.php";
+        require_once SITE_PATH."example/WxPay.JsApiPay.php";
 
         $tools = new \JsApiPay();
         $open_id = $tools->GetOpenid();

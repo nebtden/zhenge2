@@ -1,6 +1,8 @@
 <?php
-require_once "../lib/WxPay.Api.php";
-require_once "../lib/WxPay.Notify.php";
+if(!defined('SITE_PATH')){
+    define('SITE_PATH', dirname(dirname(__FILE__))."/");
+}
+require_once SITE_PATH."lib/WxPay.Api.php";
 /**
  * 
  * 刷卡支付实现类

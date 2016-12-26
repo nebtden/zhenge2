@@ -1,4 +1,7 @@
-<?php 
+<?php
+if(!defined('SITE_PATH')){
+    define('SITE_PATH', dirname(dirname(__FILE__))."/");
+}
 ini_set('date.timezone','Asia/Shanghai');
 //error_reporting(E_ERROR);
 require_once "../lib/WxPay.Api.php";
@@ -26,11 +29,11 @@ $input = new WxPayUnifiedOrder();
 $input->SetBody("test");
 $input->SetAttach("test");
 $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
-$input->SetTotal_fee("1");
+$input->SetTotal_fee("101");
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");
-$input->SetNotify_url("http://zhenimage.com/index.php");
+$input->SetNotify_url("http://zhenimage.com/wx/example/notify.php");
 $input->SetTrade_type("JSAPI");
 $input->SetOpenid($openId);
 $order = WxPayApi::unifiedOrder($input);
@@ -39,7 +42,7 @@ printf_info($order);
 $jsApiParameters = $tools->GetJsApiParameters($order);
 
 //获取共享收货地址js函数参数
-$editAddress = $tools->GetEditAddressParameters();
+//$editAddress = $tools->GetEditAddressParameters();
 
 //③、在支持成功回调通知中处理成功之后的事宜，见 notify.php
 /**
@@ -83,39 +86,7 @@ $editAddress = $tools->GetEditAddressParameters();
 		}
 	}
 	</script>
-	<script type="text/javascript">
-	//获取共享地址
-	function editAddress()
-	{
-		WeixinJSBridge.invoke(
-			'editAddress',
-			<?php echo $editAddress; ?>,
-			function(res){
-				var value1 = res.proviceFirstStageName;
-				var value2 = res.addressCitySecondStageName;
-				var value3 = res.addressCountiesThirdStageName;
-				var value4 = res.addressDetailInfo;
-				var tel = res.telNumber;
-				
-				alert(value1 + value2 + value3 + value4 + ":" + tel);
-			}
-		);
-	}
-	
-	window.onload = function(){
-		if (typeof WeixinJSBridge == "undefined"){
-		    if( document.addEventListener ){
-		        document.addEventListener('WeixinJSBridgeReady', editAddress, false);
-		    }else if (document.attachEvent){
-		        document.attachEvent('WeixinJSBridgeReady', editAddress); 
-		        document.attachEvent('onWeixinJSBridgeReady', editAddress);
-		    }
-		}else{
-			editAddress();
-		}
-	};
-	
-	</script>
+
 </head>
 <body>
     <br/>
