@@ -4,13 +4,12 @@ if(!defined('SITE_PATH')){
 }
 ini_set('date.timezone','Asia/Shanghai');
 //error_reporting(E_ERROR);
-require_once "../lib/WxPay.Api.php";
+require_once SITE_PATH."lib/WxPay.Api.php";
 require_once "WxPay.JsApiPay.php";
 require_once 'log.php';
 
 //初始化日志
-$logHandler= new CLogFileHandler("../logs/".date('Y-m-d').'.log');
-$log = Log::Init($logHandler, 15);
+
 
 //打印输出数组信息
 function printf_info($data)
@@ -29,8 +28,13 @@ if(!$_SESSION['open_id']){
 }
 
 
+
 //②、统一下单
 $order_info = $_SESSION['order_info'];
+var_dump($order_info);
+
+
+
 $input = new WxPayUnifiedOrder();
 $input->SetBody("甄阁押金预定");
 $input->SetAttach($order_info['store_name']);
@@ -43,9 +47,9 @@ $input->SetNotify_url("http://zhenimage.com/wx/example/notify.php");
 $input->SetTrade_type("JSAPI");
 $input->SetOpenid($openId);
 $order = WxPayApi::unifiedOrder($input);
-//echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
-//printf_info($order);
+
 $jsApiParameters = $tools->GetJsApiParameters($order);
+
 
 //获取共享收货地址js函数参数
 //$editAddress = $tools->GetEditAddressParameters();
@@ -73,7 +77,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
                 <?php echo $jsApiParameters; ?>,
                 function(res){
                     WeixinJSBridge.log(res.err_msg);
-                    alert(res.err_code+res.err_desc+res.err_msg);
+                    //alert(res.err_code+res.err_desc+res.err_msg);
                 }
             );
         }
@@ -130,11 +134,13 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
 
         <dd><span class="ic_gz">查看退款规则</span></dd>
 
-        <dd><span class="btn_wx"><i>微信支付</i></span></dd>
+        <dd>
+            <button class="btn_wx" type="button" onclick="callpay()"  class="btn2">微信支付</button>
+        </dd>
         <dd class="dd_line"></dd>
 
         <dd class="dd_btn">
-            <button type="button" onclick="callpay()"  class="btn2">我的订单</button>
+            <a href="/index.php?g=order&m=index&a=my"  class="btn2">我的订单</a>
         </dd>
 
     </dl>

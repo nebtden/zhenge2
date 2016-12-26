@@ -123,19 +123,20 @@ class IndexController extends HomebaseController {
         //$_POST 回调通知,写入到这个借口
         if($_POST){
 //            require_once SITE_PATH."example/WxPay.JsApiPay.php";
-
             $notify = new PayNotifyCallBack();
             $notify->Handle(false);
 
         }
 
 
-
-
-        if(!$_SESSION['open_id']){
-            $_SESSION['open_id'] = 1;
-        }
         $this->display(":index");
+    }
+    public function test(){
+        $data = [];
+        $data['email'] = '1111';
+        $open_id= 'o0qLLwNFiueQN-UfYWL0Y7H2xIT8';
+        $model_members = M('Members');
+        $model_members->where(array('open_id'=>$open_id))->save($data);
     }
 
     public function step2(){
@@ -145,13 +146,15 @@ class IndexController extends HomebaseController {
         $storelist = $model_store->select();
 
         if($_GET['id']){
-            $_SESSION['store_id'] = intval($_GET['id']);
+
             $storeinfo = $model_store->where(array('id'=>intval($_GET['id'])))->find();
         }else{
             $store_list_values = array_values($storelist);
             $storeinfo = $store_list_values[0];
-            $_SESSION['store_id'] =$storeinfo['id'];
+
         }
+        $_SESSION['store_id'] =$storeinfo['id'];
+        $_SESSION['store_name'] =$storeinfo['store_name'];
 
         $this->assign('storelist',$storelist);
         $this->assign('storeinfo',$storeinfo);

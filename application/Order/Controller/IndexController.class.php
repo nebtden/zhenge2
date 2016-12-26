@@ -113,14 +113,42 @@ class IndexController extends HomebaseController{
 
 
     }
+    function create1(){
+        if(!IS_POST){
+            throw new Exception('system error!');
+        }
+        $Order = M('Orders');
+        $Order->create();
+        $product_model = M('Products');
+        $id = $_SESSION['product_id'];
+        $product_info=$product_model->where( array ('id'=>$id))->find();
 
-    function create(){
+
+        $Order->order_sn = time().rand(100,999); // 设置默认的用户状态
+        $Order->order_amount = $product_info['price']; // 设置默认的用户状态
+
+        $Order->paid_amount = C('money');
+        $Order->state = 0;
+
+        $result = $Order->add();
+        if($result){
+            redirect(U('order/index/show',array('id'=>$result)));
+        }else{
+            $this->error($Order->getError());
+        }
+    }
+
+    function create2(){
         $id = intval($_POST['id']);
 //        $id= 4;
         $model_order = M('orders');
         $order_info = $model_order->where( array ('id'=>intval($id)))->find();
+        if(!$order_info){
 
-        $open_id = $_SESSION['open_id'] =1;
+        }
+
+
+        $open_id = $_SESSION['open_id'];
         $model_members = M('Members');
         $menber_info = $model_members->where(array('open_id'=>$open_id))->find();
         $data=array();
@@ -128,6 +156,7 @@ class IndexController extends HomebaseController{
         $data['name']  =$_POST['name'];
         $data['voucher']  =$_POST['voucher'];
         $data['address']  =$_POST['address'];
+        $data['sex']  =$_POST['sex'];
         $data['email']  =$_POST['email'];
         $data['telephone']  =$_POST['telephone'];
         $res = $model_order->where( array ('id'=>intval($id)))->save($data);
@@ -142,6 +171,7 @@ class IndexController extends HomebaseController{
             $res =   $model_members->where(array('open_id'=>$open_id))->save($data);
         }
         $_SESSION['order_info'] = $order_info;
+        $_SESSION['order_info']['store_name'] = $_SESSION['store_name'];
         $url = $_SERVER['SERVER_NAME'].'/example/jsapi.php';
         header("Location: http://$url");
 
@@ -196,13 +226,6 @@ class IndexController extends HomebaseController{
         $member_info = $this->model_member->where(
             array ('open_id'=>$open_id)
         )->find();
-
-        $count=$this->model_order->where( array ('member_id'=>$member_info['id']))->count();
-
-
-        //需要连表查询  @todo
-
-
 
         $count=$this->model_order->where( array ('member_id'=>$member_info['id']))->count();
         $page = $this->page($count, 10);

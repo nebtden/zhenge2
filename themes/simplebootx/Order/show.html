@@ -13,7 +13,7 @@
     </header>
     <div class="wrap amcontent ">
         <div class="order_show">
-            <form method="post" action="{:U('order/index/create')}">
+            <form method="post" action="{:U('order/index/create2')}">
                 <input type="hidden" name="id" value="{$Think.get.id}" >
             <dl class="o_show o_show_confirm">
                 <dt>确认订单</dt>
@@ -58,7 +58,7 @@
                 <dd class="dd_tit clearfix">
                     <p>*您的性别</p></dd>
                 <dd class="dd_input clearfix">
-                    <input type="hidden" name="sex" value="{$member_info.sex}">
+                    <input type="hidden" id="sex" name="sex" value="{$member_info.sex}">
                     <span class="s_radio <eq name='member_info.sex' value='male'>
                     s_radio_ed
                     </eq>" data-value="male">先生</span>&nbsp;&nbsp;
@@ -93,7 +93,9 @@
 <script>
     $(function(){
         $(".s_radiobox .s_radio").click(function(event){
+//            console.log($(this).data('value'));
             $(this).addClass("s_radio_ed").siblings(".s_radio").removeClass("s_radio_ed");
+            $("#sex").val($(this).data('value'));
         });
         $(".s_arrob").click(function(){
             $(".box_gz").toggle();
