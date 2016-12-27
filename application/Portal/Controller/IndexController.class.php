@@ -132,7 +132,7 @@ class IndexController extends HomebaseController {
         $this->display(":index");
     }
     public function test(){
-        $data = [];
+        $data = array();
         $data['email'] = '1111';
         $open_id= 'o0qLLwNFiueQN-UfYWL0Y7H2xIT8';
         $model_members = M('Members');

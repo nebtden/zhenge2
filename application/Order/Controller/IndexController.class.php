@@ -2,6 +2,7 @@
 namespace Order\Controller;
 use Common\Controller\HomebaseController;
 use Common\Model\OrdersModel;
+use Think\Exception;
 use Think\Log;
 
 class IndexController extends HomebaseController{
@@ -114,14 +115,16 @@ class IndexController extends HomebaseController{
 
     }
     function create1(){
-        if(!IS_POST){
-            throw new Exception('system error!');
-        }
+
         $Order = M('Orders');
         $Order->create();
         $product_model = M('Products');
         $id = $_SESSION['product_id'];
+
         $product_info=$product_model->where( array ('id'=>$id))->find();
+        if(!$product_info){
+            $this->error('系统错误！');
+        }
 
 
         $Order->order_sn = time().rand(100,999); // 设置默认的用户状态
@@ -135,6 +138,7 @@ class IndexController extends HomebaseController{
             redirect(U('order/index/show',array('id'=>$result)));
         }else{
             $this->error($Order->getError());
+
         }
     }
 
@@ -143,12 +147,18 @@ class IndexController extends HomebaseController{
 //        $id= 4;
         $model_order = M('orders');
         $order_info = $model_order->where( array ('id'=>intval($id)))->find();
-        if(!$order_info){
+        $_SESSION['order_info'] = $order_info['order_sn'];
 
+        if(!$order_info){
+            $this->error('订单没找到');
+        }
+        $open_id = $_SESSION['open_id'];
+        if(!$open_id){
+            $this->error('路径错误！',$_SERVER['SERVER_NAME']);
         }
 
 
-        $open_id = $_SESSION['open_id'];
+
         $model_members = M('Members');
         $menber_info = $model_members->where(array('open_id'=>$open_id))->find();
         $data=array();
@@ -170,11 +180,19 @@ class IndexController extends HomebaseController{
             //更新用户
             $res =   $model_members->where(array('open_id'=>$open_id))->save($data);
         }
-        $_SESSION['order_info'] = $order_info;
+
+
         $_SESSION['order_info']['store_name'] = $_SESSION['store_name'];
         $url = $_SERVER['SERVER_NAME'].'/example/jsapi.php';
         header("Location: http://$url");
 
+    }
+    function test(){
+//        $model_order = M('orders');
+//        $order_info = $model_order->where( array ('id'=>2))->find();
+//        var_dump($order_info);
+//        $_SESSION['order_info'] = $order_info;
+        var_dump( $_SESSION['order_info']);
     }
 
 

@@ -1,9 +1,10 @@
 <?php
+session_start();
 if(!defined('SITE_PATH')){
     define('SITE_PATH', dirname(dirname(__FILE__))."/");
 }
 ini_set('date.timezone','Asia/Shanghai');
-//error_reporting(E_ERROR);
+error_reporting(E_ERROR);
 require_once SITE_PATH."lib/WxPay.Api.php";
 require_once "WxPay.JsApiPay.php";
 require_once 'log.php';
@@ -28,10 +29,7 @@ if(!$_SESSION['open_id']){
 }
 
 
-
-//②、统一下单
 $order_info = $_SESSION['order_info'];
-var_dump($order_info);
 
 
 
@@ -111,7 +109,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
     <link type="text/css" href="/themes/simplebootx/Public/style/css/rili.css" rel="stylesheet" />
 
 </head>
-<body>
+<body onload="loadtime()">
 <header class="demo-header widget-hd amcontent">
     <div class="head">
         <!--<span class="bj-icon ic-head-back" onclick="history.back()"> 上一页</span>-->
@@ -127,7 +125,7 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
             档期将为您保留20分钟，请尽快支付。</dt>
 
         <dd class="color3">支付剩余时间 </dd>
-        <dd class="dd_time">17:54</dd>
+        <dd class="dd_time" id="timer"></dd>
 
         <dd class="color3">请您在剩余时间内完成支付，否则订单将被取消
             您也可以在“我的订单”中查看或取消该订单</dd>
@@ -159,9 +157,35 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
     $(function () {
         $('#menu li').click(function () {
             window.location = $(this).data('href');
-        })
+        });
+
+
     });
 
+</script>
+<script>
+    var ts =  20*60*1000;
+    function timer()
+    {
+        ts = ts-1000;
+        //计算剩余的毫秒数
+        var mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数
+        var ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数
+        mm = checkTime(mm);
+        ss = checkTime(ss);
+        document.getElementById("timer").innerHTML =mm + ":" + ss;
+
+    }
+    function loadtime() {
+        setInterval("timer()",1000);
+    }
+    function checkTime(i)
+    {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
 </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="style/css/base.css">
 <link rel="stylesheet" href="style/css/tlp.css">
 </head>
-<body class="">
+<body class="" onload="loadtime()">
 <div class="am-page" id="mobile-index">
   <header class="demo-header widget-hd amcontent">
     <div class="head"><span class="bj-icon ic-head-back">上一页</span><h2 class="h2_logo"></h2><span class="bj-icon ic_head_menu" id="s_menu"></span></div>
@@ -23,7 +23,7 @@
 档期将为您保留20分钟，请尽快支付。</dt>
   
   <dd class="color3">支付剩余时间 </dd>
-  <dd class="dd_time">17:54</dd>
+  <dd class="dd_time"  id = "timer"> </dd>
 
   <dd class="color3">请您在剩余时间内完成支付，否则订单将被取消
 您也可以在“我的订单”中查看或取消该订单</dd>
@@ -54,9 +54,28 @@
 <script type="text/javascript" src="style/lib/jquery.min.js"></script> 
 <script type="text/javascript" src="style/js/base.js"></script> 
 <script>
-$(function(){
+  var ts =  20*60*1000;
+  function timer()
+  {
+    ts = ts-1000;
+    //计算剩余的毫秒数
+    var mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数
+    var ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数
+    mm = checkTime(mm);
+    ss = checkTime(ss);
+    document.getElementById("timer").innerHTML =mm + ":" + ss;
 
-});
+  }
+  function loadtime() {
+    setInterval("timer()",1000);
+  }
+  function checkTime(i)
+  {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
 </script>
 </body>
 </html>
