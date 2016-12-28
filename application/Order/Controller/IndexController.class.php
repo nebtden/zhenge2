@@ -131,6 +131,12 @@ class IndexController extends HomebaseController{
         $Order->order_amount = $product_info['price']; // 设置默认的用户状态
 
         $Order->paid_amount = C('money');
+
+        $open_id = $_SESSION['open_id'];
+        $model_members = M('Members');
+        $member_info = $model_members->where(array('open_id'=>$open_id))->find();
+
+        $Order->member_id = $member_info['id'];
         $Order->state = 0;
 
         $result = $Order->add();
@@ -147,7 +153,7 @@ class IndexController extends HomebaseController{
 //        $id= 4;
         $model_order = M('orders');
         $order_info = $model_order->where( array ('id'=>intval($id)))->find();
-        $_SESSION['order_info'] = $order_info['order_sn'];
+        $_SESSION['order_info'] = $order_info;
 
         if(!$order_info){
             $this->error('订单没找到');

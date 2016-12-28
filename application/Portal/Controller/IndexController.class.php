@@ -71,6 +71,10 @@ class PayNotifyCallBack extends \WxPayNotify
         //处理订单逻辑
         $order_sn = $data['out_trade_no'];
 
+        $f = fopen('log.txt','a');
+        fwrite($f,'$order_sn='.$order_sn."\r\n");
+        fclose($f);
+
         $model_order = M('orders');
         $order_info = $model_order->where( array ('order_sn'=>intval($order_sn)))->find();
         if($order_info){
@@ -95,41 +99,49 @@ class IndexController extends HomebaseController {
     private  $secret = '83e83a1a78965c8895bb4a86317e1485';
     //首页
     public function index() {
-        require_once SITE_PATH."lib/WxPay.Api.php";
-        require_once SITE_PATH."example/WxPay.JsApiPay.php";
-
-        $tools = new \JsApiPay();
-        $open_id = $tools->GetOpenid();
-        if(!$open_id){
-            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri=http%3A%2F%2F'.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
-            header("Location: $url");
-        }else{
-            $_SESSION['open_id'] = $open_id;
-            Log::record($open_id);
-        }
-
-        $open_id = $_SESSION['open_id'];
-        $model_members = M('Members');
-        $menber_info = $model_members->where(array('open_id'=>$open_id))->find();
-        if(!$menber_info){
-            //创建用户
-            $data['open_id'] = $open_id;
-            $model_members->create($data);
-            $model_members->add();
-        }
 
 
+        $f = fopen('log.txt','a');
+        fwrite($f,date("Y-m-d H:i:s")."bbb\r\n/r/n".json_encode($_POST));
+        fclose($f);
 
         //$_POST 回调通知,写入到这个借口
-        if($_POST){
+        if(IS_POST){
+            $f = fopen('log.txt','a');
+            fwrite($f,date("Y-m-d H:i:s")."bbb\r\n/r/n".json_encode($GLOBALS['HTTP_RAW_POST_DATA'].""));
+            fclose($f);
 //            require_once SITE_PATH."example/WxPay.JsApiPay.php";
             $notify = new PayNotifyCallBack();
             $notify->Handle(false);
+            return false;
 
+        }else{
+            require_once SITE_PATH."lib/WxPay.Api.php";
+            require_once SITE_PATH."example/WxPay.JsApiPay.php";
+
+            $tools = new \JsApiPay();
+            $open_id = $tools->GetOpenid();
+            if(!$open_id){
+                $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->app_id.'&redirect_uri=http%3A%2F%2F'.$redirect_url.'&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+                header("Location: $url");
+            }else{
+                $_SESSION['open_id'] = $open_id;
+                Log::record($open_id);
+            }
+
+            $open_id = $_SESSION['open_id'];
+            $model_members = M('Members');
+            $menber_info = $model_members->where(array('open_id'=>$open_id))->find();
+            if(!$menber_info){
+                //创建用户
+                $data['open_id'] = $open_id;
+                $model_members->create($data);
+                $model_members->add();
+            }
+
+            $this->display(":index");
         }
 
-
-        $this->display(":index");
     }
     public function test(){
         $data = array();

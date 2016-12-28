@@ -6,7 +6,12 @@
  * Time: 20:18
  */
 
-
-$_SESSION['order_info'] = $order_info;
-$url = $_SERVER['SERVER_NAME'].'/index.php';
-header("Location: http://$url");
+session_start();
+$order_info =array();
+$order_info['store_name'] = 'aaaaaa';
+$order_info['order_sn'] = 555555+time();
+$order_info['paid_amount'] = 0.01;
+$_SESSION['order_info'] =$order_info;
+$_SESSION['aaa'] =$order_info;
+var_dump($_SESSION['order_info']);
+var_dump($_SESSION['aaa']);

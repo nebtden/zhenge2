@@ -80,6 +80,12 @@ class IndexController extends HomebaseController{
         $conditon['date']     =   htmlspecialchars($_GET['date']);
         $order_list=$model_order->field('id,time_index')->where($conditon)->select();
         $used_list = array();
+
+        //过期日期不再点击
+        $date_array = explode('-',$_GET['date']);
+        $date = $date_array[0].'-'.intval($date_array[1]).'-'.intval($date_array[2]);
+
+        if($_GET['date']== date('Y-m-d'))
         foreach ($order_list as $val){
             $used_list[] = $val['time_index'];
         }

@@ -21,23 +21,20 @@ function printf_info($data)
 }
 
 //①、获取用户openid
-if(!$_SESSION['open_id']){
-    $tools = new JsApiPay();
-    $openId = $tools->GetOpenid();
-}else{
-    $openId = $_SESSION['open_id'];
-}
+
+$tools = new JsApiPay();
+$openId = $tools->GetOpenid();
+
 
 
 $order_info = $_SESSION['order_info'];
-
 
 
 $input = new WxPayUnifiedOrder();
 $input->SetBody("甄阁押金预定");
 $input->SetAttach($order_info['store_name']);
 $input->SetOut_trade_no($order_info['order_sn']);
-$input->SetTotal_fee($order_info['paid_money']*100);
+$input->SetTotal_fee($order_info['paid_amount']*100);
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");
@@ -94,19 +91,14 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
             }
         }
     </script>
-    <meta charset="utf-8">
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
-    <meta name="renderer" content="webkit">
+
 
     <link rel="stylesheet" href="/themes/simplebootx/Public/style/css/base.css">
     <link rel="stylesheet" href="/themes/simplebootx/Public/style/css/tlp.css">
 
 
     <script type="text/javascript" src="/themes/simplebootx/Public/style/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="/themes/simplebootx/Public/style/js/base.js"></script>
-    <script type="text/javascript" src="/themes/simplebootx/Public/style/js/jquery.datePicker-min.js"></script>
-    <link type="text/css" href="/themes/simplebootx/Public/style/css/rili.css" rel="stylesheet" />
+
 
 </head>
 <body onload="loadtime()">
@@ -158,8 +150,6 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
         $('#menu li').click(function () {
             window.location = $(this).data('href');
         });
-
-
     });
 
 </script>
@@ -187,5 +177,6 @@ $jsApiParameters = $tools->GetJsApiParameters($order);
         return i;
     }
 </script>
+
 </body>
 </html>

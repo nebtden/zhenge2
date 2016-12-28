@@ -13,7 +13,7 @@
     </header>
     <div class="wrap amcontent ">
         <div class="order_show">
-            <form method="post" action="{:U('order/index/create2')}">
+            <form method="post" id="commentForm" action="{:U('order/index/create2')}">
                 <input type="hidden" name="id" value="{$Think.get.id}" >
             <dl class="o_show o_show_confirm">
                 <dt>确认订单</dt>
@@ -52,13 +52,13 @@
                 <dd class="dd_tit">*您的姓名</dd>
                 <dd class="dd_input">
                     <span class="s_cell">
-                        <input type="text" value="{$member_info.name}" name="name" class="input" />
+                        <input type="text" value="{$member_info.name}" name="name"   class="input" />
                     </span>
                 </dd>
                 <dd class="dd_tit clearfix">
                     <p>*您的性别</p></dd>
                 <dd class="dd_input clearfix">
-                    <input type="hidden" id="sex" name="sex" value="{$member_info.sex}">
+                    <input type="hidden" id="sex" name="sex" value="{$member_info.sex}" required>
                     <span class="s_radio <eq name='member_info.sex' value='male'>
                     s_radio_ed
                     </eq>" data-value="male">先生</span>&nbsp;&nbsp;
@@ -69,15 +69,15 @@
                 <dd class="dd_tit">*您的手机</dd>
                 <dd class="dd_input">
                     <span class="s_cell">
-                        <input type="text"  value="{$member_info.telephone}"  name="telephone" class="input" />
+                        <input type="text"  value="{$member_info.telephone}"  name="telephone" class="input" required type="telephone"/>
                     </span>
                 </dd>
                 <dd class="dd_tit">*您的邮箱</dd>
                 <dd class="dd_input">
-                    <input type="text" value="{$member_info.email}" name="email"  class="input" /></dd>
+                    <input type="text" value="{$member_info.email}" name="email"  required type="email" class="input" /></dd>
                 <dd class="dd_tit">*您的收货地址</dd>
                 <dd class="dd_input">
-                    <input type="text" value="{$member_info.address}" name="address" class="input" /></dd><br>
+                    <input type="text" value="{$member_info.address}" name="address" minlength="5" class="input" /></dd><br>
                 <dd class="dd_line"></dd>
                 <dd class="btnbox">
                     <button class="btn" type="submit">提交订单</button>
@@ -90,7 +90,9 @@
 </div>
 
 <!--page-->
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 <script>
+
     $(function(){
         $(".s_radiobox .s_radio").click(function(event){
 //            console.log($(this).data('value'));
@@ -101,6 +103,42 @@
             $(".box_gz").toggle();
         })
     });
+    jQuery.validator.addMethod("chinese", function(value, element) {
+        var chinese = /^[\u4e00-\u9fa5]+$/;
+        return this.optional(element) || (chinese.test(value));
+    }, "只能输入中文");
+    jQuery.validator.addMethod("telephone", function(value, element) {
+        var tel = /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/;
+        return this.optional(element) || (tel.test(value));
+    }, "电话号码格式错误");
+    $().ready(function() {
+
+
+        $("#commentForm").validate({
+            /*自定义验证规则*/
+
+
+            rules: {
+                name: { required: true, minlength: 6 },
+                email: { required: true, email: true },
+               telephone:{required: true, phone: true}
+            },
+            /*错误提示位置*/
+            errorPlacement: function(error, element) {
+                console.log(error);
+//                console.log(error.innerHTML());
+                alert(error.text());
+//                return false;
+            },
+            messages: {
+                username: { required: "请输入姓名", minlength: "长度不可小于6" },
+                email: { required: "请输入电子邮件", email: "请输入正确邮件" },
+              telephone: { required: "请输入正确号码", telephone: "请输入正确号码" }
+            }
+        });
+    });
+
+
 </script>
 </body>
 </html>
