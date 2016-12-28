@@ -28,8 +28,8 @@ class AdminIndexController extends AdminbaseController{
         if(IS_POST){
 
             $data=I("post.post");
-            $page['detail']=$_POST['post']['detail'];
-            $page['price']=$_POST['post']['price'];
+            $data['detail']=htmlspecialchars_decode($_POST['post']['detail']);
+            $data['price']=$_POST['post']['price'];
 
             $result=$this->product_model->save($data);
             if ($result !== false) {
