@@ -3,37 +3,28 @@
 <body>
 <div class="wrap js-check-wrap">
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="javascript:;">店铺管理</a></li>
-		<li><a href="{:U('AdminIndex/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">店铺添加</a></li>
+		<li class="active"><a href="javascript:;">产品管理</a></li>
 	</ul>
 
 	<table class="table table-hover table-bordered table-list">
 		<thead>
 		<tr>
-
-
 			<th width="50">ID</th>
-			<th width="80">店铺名</th>
-			<th width="80">店铺地址</th>
-			<th width="80">电话</th>
-
-
+			<th width="80">产品名</th>
+			<th width="80">价格</th>
 			<th width="70">操作</th>
 		</tr>
 		</thead>
-		<foreach name="stores_list" item="vo">
+		<foreach name="product_list" item="vo">
 			<tr>
-
 				<td><b>{$vo.id}</b></td>
 				<td>
-					{$vo.store_name}
+					{$vo.title}
 				</td>
 				<td>
-					{$vo.address}
+					{$vo.price}
 				</td>
-				<td>
-					{$vo.phone}
-				</td>
+
 				<td>
 					<a href="{:U('AdminIndex/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
 				</td>

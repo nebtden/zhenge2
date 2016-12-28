@@ -7,6 +7,12 @@ class AdminIndexController extends AdminbaseController{
 
     protected $order_model;
 
+    private static $order_state = array(
+        0=>'订单取消',
+        1=>'未付款',
+        2=>'已付款',
+    );
+
     public function _initialize() {
         parent::_initialize();
         $this->order_model = D("Common/Orders");
@@ -14,7 +20,17 @@ class AdminIndexController extends AdminbaseController{
 
 
     function index(){
-        $orders=$this->order_model->order(array("id"=>"ASC"))->select();
+        $count=$this->order_model->count();
+        $page = $this->page($count, 10);
+
+        $orders = $this->order_model
+            ->limit($page->firstRow , $page->listRows)
+            ->order('id desc')
+            ->select();
+        foreach ($orders as &$val){
+            $val['order_state_name'] =self::$order_state[$val['order_state']];
+        }
+
         $this->assign("orders",$orders);
         $this->display();
     }

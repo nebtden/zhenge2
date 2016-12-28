@@ -1,28 +1,51 @@
 <?php
-namespace Store\Controller;
+namespace Product\Controller;
 use Common\Controller\AdminbaseController;
 
 class AdminIndexController extends AdminbaseController{
 
-    protected $order_model;
+    protected $product_model;
 
     public function _initialize() {
         parent::_initialize();
-        $this->order_model = D("Common/Stores");
+        $this->product_model = D("Common/Products");
     }
 
 
 	function index(){
-        $orders=$this->order_model->order(array("id"=>"ASC"))->select();
-        $this->assign("orders",$orders);
+        $product_list=$this->product_model->order(array("id"=>"ASC"))->select();
+        $this->assign("product_list",$product_list);
         $this->display();
 	}
 
-    // 友情链接添加
+    //
     public function add(){
-        $this->assign("targets",$this->targets);
+
         $this->display();
     }
+
+    public function edit(){
+        if(IS_POST){
+
+            $data=I("post.post");
+            $page['detail']=$_POST['post']['detail'];
+            $page['price']=$_POST['post']['price'];
+
+            $result=$this->product_model->save($data);
+            if ($result !== false) {
+                $this->success("保存成功！");
+            } else {
+                $this->error("保存失败！");
+            }
+        }
+        $id = intval($_GET['id']);
+        $model_products = M('products');
+        $product_info = $model_products->where( array ('id'=>intval($id)))->find();
+
+        $this->assign('product_info',$product_info);
+        $this->display();
+    }
+
 
     // 友情链接添加提交
     public function add_post(){

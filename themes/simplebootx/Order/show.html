@@ -52,7 +52,7 @@
                 <dd class="dd_tit">*您的姓名</dd>
                 <dd class="dd_input">
                     <span class="s_cell">
-                        <input type="text" value="{$member_info.name}" name="name"   class="input" />
+                        <input type="text" value="{$member_info.name}" name="name"  id="name" class="input" />
                     </span>
                 </dd>
                 <dd class="dd_tit clearfix">
@@ -69,15 +69,15 @@
                 <dd class="dd_tit">*您的手机</dd>
                 <dd class="dd_input">
                     <span class="s_cell">
-                        <input type="text"  value="{$member_info.telephone}"  name="telephone" class="input" required type="telephone"/>
+                        <input type="text"  value="{$member_info.telephone}"  name="telephone" id="telephone" class="input"  type="telephone"/>
                     </span>
                 </dd>
                 <dd class="dd_tit">*您的邮箱</dd>
                 <dd class="dd_input">
-                    <input type="text" value="{$member_info.email}" name="email"  required type="email" class="input" /></dd>
+                    <input type="text" value="{$member_info.email}" name="email"  id="email" type="email" class="input" /></dd>
                 <dd class="dd_tit">*您的收货地址</dd>
                 <dd class="dd_input">
-                    <input type="text" value="{$member_info.address}" name="address" minlength="5" class="input" /></dd><br>
+                    <input type="text" value="{$member_info.address}" name="address" id="address"  class="input" /></dd><br>
                 <dd class="dd_line"></dd>
                 <dd class="btnbox">
                     <button class="btn" type="submit">提交订单</button>
@@ -114,28 +114,36 @@
     $().ready(function() {
 
 
-        $("#commentForm").validate({
+        $("#commentForm").submit(function () {
             /*自定义验证规则*/
-
-
-            rules: {
-                name: { required: true, minlength: 6 },
-                email: { required: true, email: true },
-               telephone:{required: true, phone: true}
-            },
-            /*错误提示位置*/
-            errorPlacement: function(error, element) {
-                console.log(error);
-//                console.log(error.innerHTML());
-                alert(error.text());
-//                return false;
-            },
-            messages: {
-                username: { required: "请输入姓名", minlength: "长度不可小于6" },
-                email: { required: "请输入电子邮件", email: "请输入正确邮件" },
-              telephone: { required: "请输入正确号码", telephone: "请输入正确号码" }
-            }
+            var username= $("#name").val();
+            var email= $("#email").val();
+            var telephone= $("#telephone").val();
+            var address= $("#address").val();
+            var sex= $("#sex").val();
+            if(!username.match(/^[\u4e00-\u9fa5]+$/)){
+                alert('用户名不为中文');
+                return false;
+            };
+            if(!email.match(/@/)){
+                alert('邮箱格式不对');
+                return false;
+            };
+            if(!telephone.match(/^1[34578]\d{9}$/)){
+                alert('手机号码不对');
+                return false;
+            };
+            if(address.length<5){
+                alert('请输入详细地址');
+                return false;
+            };
+            if(sex==''){
+                alert('请选择性别');
+                return false;
+            };
         });
+
+
     });
 
 
