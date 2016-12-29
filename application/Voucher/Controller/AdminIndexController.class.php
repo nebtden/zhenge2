@@ -1,44 +1,72 @@
 <?php
-namespace Product\Controller;
+namespace Voucher\Controller;
 use Common\Controller\AdminbaseController;
 
 class AdminIndexController extends AdminbaseController{
 
-    protected $product_model;
+    protected $model_vouchers;
 
     public function _initialize() {
         parent::_initialize();
-        $this->product_model = D("Common/Product");
+        $this->model_vouchers = D("Common/Vouchers");
     }
 
 
 	function index(){
-        $product_list=$this->product_model->order(array("id"=>"ASC"))->select();
-        $this->assign("product_list",$product_list);
+        $count=$this->model_vouchers->count();
+        $page = $this->page($count, 10);
+
+        $vouchers_list = $this->model_vouchers
+            ->limit($page->firstRow , $page->listRows)
+            ->order('id desc')
+            ->select();
+        $this->assign("page", $page->show('Admin'));
+        $this->assign("vouchers_list",$vouchers_list);
         $this->display();
 	}
 
     //
     public function add(){
-
-        $this->display();
-    }
-
-    // 友情链接添加提交
-    public function add_post(){
         if(IS_POST){
-            if ($this->order_model->create()!==false) {
-                if ($this->order_model->add()!==false) {
-                    $this->success("添加成功！", U("link/index"));
-                } else {
-                    $this->error("添加失败！");
-                }
-            } else {
-                $this->error($this->order_model->getError());
+            if( $_POST['post']['num']>1000){
+                $this->error("优惠券数目生成过多，一次最多1000！");
+            }
+            $price = $_POST['post']['price'];
+            $num = $_POST['post']['num'];
+
+            $voucher_init = time();
+            for ($i=0;$i<$num;$i++ ){
+                $data=array();
+                $data['code'] = $voucher_init+$i.$this->getrandom();
+                $data['price'] =$price;
+                $this->model_vouchers->add($data);
             }
 
+            $this->success("保存成功！");
+
+        }else{
+            $this->display();
         }
+
+
     }
+
+    public function voucherlist_create(){
+
+    }
+
+    private function getrandom(){
+        $pattern = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ';
+
+        $key ='';
+        for($i=0;$i<6;$i++)
+        {
+            $key .= $pattern{mt_rand(0,35)};    //生成php随机数
+        }
+        return $key;
+    }
+
+
 
 
 

@@ -30,7 +30,7 @@ class AdminIndexController extends AdminbaseController{
         foreach ($orders as &$val){
             $val['order_state_name'] =self::$order_state[$val['order_state']];
         }
-
+        $this->assign("page", $page->show('Admin'));
         $this->assign("orders",$orders);
         $this->display();
     }

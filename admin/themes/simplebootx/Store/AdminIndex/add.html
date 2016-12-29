@@ -17,7 +17,7 @@
 <body>
 	<div class="wrap js-check-wrap">
 		<ul class="nav nav-tabs">
-			<li><a href="{:U('AdminPost/index')}">店铺管理</a></li>
+			<li><a href="{:U('AdminIndex/index')}">店铺管理</a></li>
 			<li class="active"><a href="{:U('AdminIndex/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">店铺添加</a></li>
 		</ul>
 		<form action="{:U('AdminIndex/add_post')}" method="post" class="form-horizontal js-ajax-forms" >
@@ -28,13 +28,14 @@
 						<tr>
 							<th>店铺名</th>
 							<td>
-								<input type="text" style="width:400px;" name="post[store_name]" id="title" required value="" placeholder="请输入店铺名"/>
+								<input type="text" style="width:400px;" name="post[store_name]" id="store_name" required value="" placeholder="请输入店铺名"/>
 								<span class="form-required">*</span>
 							</td>
 						</tr>
+
 						<tr>
 							<th>地址</th>
-							<td><input type="text" name="post[address]" id="keywords" value="" style="width: 400px" placeholder="请输入店铺地址"> </td>
+							<td><input type="text" name="post[address]" id="address" value="" style="width: 400px" placeholder="请输入店铺地址"> </td>
 							<span class="form-required">*</span>
 						</tr>
 						<tr>

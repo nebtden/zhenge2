@@ -29,7 +29,12 @@ class AdminIndexController extends AdminbaseController{
     // 友情链接添加提交
     public function add_post(){
         if(IS_POST){
-            if ($this->stores_model->create()!==false) {
+            $data = array();
+            $data['store_name'] = $_POST['post']['store_name'];
+            $data['address'] = $_POST['post']['address'];
+            $data['phone'] = $_POST['post']['phone'];
+
+            if ($this->stores_model->create($data)!==false) {
                 if ($this->stores_model->add()!==false) {
                     $this->success("添加成功！", U("store/index"));
                 } else {
@@ -40,6 +45,28 @@ class AdminIndexController extends AdminbaseController{
             }
 
         }
+    }
+
+    public function edit(){
+        if(IS_POST){
+
+            $data=I("post.post");
+//            $data['detail']=htmlspecialchars_decode($_POST['post']['detail']);
+//            $data['price']=$_POST['post']['price'];
+
+            $result=$this->stores_model->save($data);
+            if ($result !== false) {
+                $this->success("保存成功！");
+            } else {
+                $this->error("保存失败！");
+            }
+        }
+        $id = intval($_GET['id']);
+
+        $store_info = $this->stores_model->where( array ('id'=>intval($id)))->find();
+
+        $this->assign('store_info',$store_info);
+        $this->display();
     }
 
 

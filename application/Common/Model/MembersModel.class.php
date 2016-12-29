@@ -6,7 +6,7 @@ class MembersModel extends CommonModel{
 	
     public function createMembers($open_id,$info){
         $menber_info = $this->where(array('open_id'=>$open_id))->find();
-        $data=[];
+        $data=array();
 
         $data['name']  =$info['name'];
         $data['address']  =$info['address'];
