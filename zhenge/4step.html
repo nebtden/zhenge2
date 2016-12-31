@@ -54,17 +54,18 @@ $(document).ready(function(){
 		selectMultiple:false,
 		renderCallback:function(y, m, B, p){
 			var str =m.getFullYear()+"-"+(m.getMonth()+1)+"-"+m.getDate();
-			$.each(datadata,function(commentIndex, datadata2) {
-				if (str==datadata2.d) {
-					y.addClass("hasdata");
-					y.find("span").html("满");
-				}
-				
-			});
+//			$.each(datadata,function(commentIndex, datadata2) {
+//				if (str==datadata2.d) {
+//					y.addClass("hasdata");
+//					y.find("span").html("满");
+//				}
+//
+//			});
 		}
 	});
 	
-	$(".datepicker .current-month").bind("click",function(event){
+	$(".datepicker td").bind("click",function(event){
+	    alert(111);
 			var da=new Date($(this).find(".td_td").attr("da"));
 			var str =da.getFullYear()+"-"+(da.getMonth()+1)+"-"+da.getDate(); 
 			alert(str);

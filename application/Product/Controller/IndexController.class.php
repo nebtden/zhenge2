@@ -33,9 +33,12 @@ class IndexController extends HomebaseController{
     }
 
     function date(){
+        $model_store = M('stores');
+        $store_info = $model_store->where( array ('id'=>$_SESSION['store_id'] ))->find();
         if(!$_SESSION['product_id']){
             throw  new  Exception('请选择产品！');
         }
+        $this->assign('store_info',$store_info);
         $this->display(':date');
     }
 

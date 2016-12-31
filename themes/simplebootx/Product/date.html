@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="m">
 <head>
+
     <tc_include file="Public:head" />
     <title>日期选择</title>
 </head>
@@ -18,15 +19,21 @@
     <div class="wrap amcontent">
 
         <dl class="dl_date">
-            <dt class="dt_tit">广州迎宾路店 <span class="ic_md ">门店信息</span></dt>
+            <dt class="dt_tit">{$store_info.store_name}
+                <span class="ic_md">
+                    <a href="{$store_info.address_map}">
+                        门店信息
+                    </a>
+                </span>
+            </dt>
             <dd class="dd_rili">
 
                 <div class="datepicker"></div>
             </dd>
 
             <dd class="dd_line"></dd>
-            <dd class="dd_tx"><p>没有适合的档期？试试档期提醒吧~ </p>
-                <a href="" class="btn_tx">档期提醒</a></dd>
+            <!--<dd class="dd_tx"><p>没有适合的档期？试试档期提醒吧~ </p>-->
+                <!--<a href="" class="btn_tx">档期提醒</a></dd>-->
 
             <script type="text/javascript">
                 $(document).ready(function(){
@@ -80,11 +87,13 @@
                         $(this).hasClass('disabled').addClass('other-month');
                     })
 
-                    $(".datepicker .current-month").on("click",function(event){
+                    $(".datepicker td").on("click",function(event){
                         console.log('2222');
+
                         var da=new Date($(this).find(".td_td").attr("da"));
                         var str =da.getFullYear()+"-"+(da.getMonth()+1)+"-"+da.getDate();
 //                        alert(str);
+                        window.location =  '/index.php?g=product&m=index&a=time&date='+str;
                         if($(this).hasClass('disabled')){
                             return false;
                         }

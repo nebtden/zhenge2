@@ -21,13 +21,6 @@ class AdminIndexController extends AdminbaseController{
 
     //添加页面
     public function add(){
-        $this->display();
-    }
-
-
-
-    // 友情链接添加提交
-    public function add_post(){
         if(IS_POST){
             $data = array();
             $data['store_name'] = $_POST['post']['store_name'];
@@ -44,7 +37,17 @@ class AdminIndexController extends AdminbaseController{
                 $this->error($this->stores_model->getError());
             }
 
+        }else{
+            $this->display();
         }
+
+    }
+
+
+
+    // 友情链接添加提交
+    public function add_post(){
+
     }
 
     public function edit(){

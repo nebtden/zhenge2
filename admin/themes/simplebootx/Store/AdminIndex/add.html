@@ -20,7 +20,7 @@
 			<li><a href="{:U('AdminIndex/index')}">店铺管理</a></li>
 			<li class="active"><a href="{:U('AdminIndex/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">店铺添加</a></li>
 		</ul>
-		<form action="{:U('AdminIndex/add_post')}" method="post" class="form-horizontal js-ajax-forms" >
+		<form action="{:U('AdminIndex/add')}" method="post" class="form-horizontal js-ajax-forms" >
 			<div class="row-fluid">
 				<div class="span9">
 					<table class="table table-bordered">
@@ -205,7 +205,7 @@
 											}, {
 												name : '返回列表页',
 												callback : function() {
-													location = "{:U('AdminPost/index')}";
+													location = "{:U('AdminIndex/index')}";
 													return true;
 												}
 											} ]

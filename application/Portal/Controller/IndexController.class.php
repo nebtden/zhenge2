@@ -102,7 +102,8 @@ class IndexController extends HomebaseController {
 
 
         $f = fopen('log.txt','a');
-        fwrite($f,date("Y-m-d H:i:s")."bbb\r\n/r/n".json_encode($_POST));
+        fwrite($f,date("Y-m-d H:i:s")."post\r\n/r/n".json_encode($_POST));
+        fwrite($f,date("Y-m-d H:i:s")."input\r\n/r/n".file_get_contents("php://input"));
         fclose($f);
 
         //$_POST 回调通知,写入到这个借口

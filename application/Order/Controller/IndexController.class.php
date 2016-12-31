@@ -131,6 +131,7 @@ class IndexController extends HomebaseController{
         $Order->order_amount = $product_info['price']; // 设置默认的用户状态
 
         $Order->paid_amount = C('money');
+        $Order->created_at =date('Y:m:d H:i:s',time());
 
         $open_id = $_SESSION['open_id'];
         $model_members = M('Members');
@@ -162,6 +163,19 @@ class IndexController extends HomebaseController{
         if(!$open_id){
             $this->error('路径错误！',$_SERVER['SERVER_NAME']);
         }
+
+        //处理优惠券的事情
+        if($_POST['voucher']){
+            $model_voucher = M('Vouchers');
+            $where = array();
+            $where['code'] = $_POST['voucher'];
+            $where['is_used'] = 0;
+            $voucher_info = $model_voucher->where($where)->find();
+            if(!$voucher_info){
+                $this->error('优惠券不存在或者优惠券已经被使用！');
+            }
+        }
+
 
 
 

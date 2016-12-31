@@ -6,6 +6,7 @@ use Think\Exception;
 class AdminIndexController extends AdminbaseController{
 
     protected $order_model;
+    protected $model_voucher;
 
     private static $order_state = array(
         0=>'订单取消',
@@ -16,6 +17,7 @@ class AdminIndexController extends AdminbaseController{
     public function _initialize() {
         parent::_initialize();
         $this->order_model = D("Common/Orders");
+        $this->model_voucher = M("Vouchers");
     }
 
 
@@ -29,6 +31,14 @@ class AdminIndexController extends AdminbaseController{
             ->select();
         foreach ($orders as &$val){
             $val['order_state_name'] =self::$order_state[$val['order_state']];
+            if($val['voucher']){
+
+                $voucher_info = $this->model_voucher->where(array('code'=>$val['voucher']))->find();
+                $val['voucher_amount'] = $voucher_info['price'];
+            }else{
+                $val['voucher_amount']= '';
+            }
+
         }
         $this->assign("page", $page->show('Admin'));
         $this->assign("orders",$orders);
@@ -87,7 +97,7 @@ class AdminIndexController extends AdminbaseController{
             while ( false !== ($file = readdir ( $handle )) ) {
                 //去掉"“.”、“..”以及带“.xxx”后缀的文件
                 if ($file != "." && $file != ".." && strpos($file,".")) {
-                    $fileArray[$i]="/public/uploadfiles/".$order_sn.'/'.$file;
+                    $fileArray[$i]="/public/uploadFiles/".$order_sn.'/'.$file;
                     if($i==100){
                         break;
                     }

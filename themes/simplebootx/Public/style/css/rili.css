@@ -64,7 +64,9 @@ div.dp-popup td .td_td{ height:40px; position:relative;}
 .hasdata{}
 .td_td span{ display:inline-block;width: 26px; height: 26px; line-height:24px; border-radius:50%; border:1px solid #fff;}
 
+
 .current-month .td_td span{ color:#202A44; border:1px solid #202A44;}
+.current-month.disabled .td_td span{ border:none}
 .hasdata .td_td  span{ color:#fff; border:1px solid #f00; background-color:#f00 ;}
 .today  .td_td span{ color:#fff; border:1px solid #202A44; background-color:#202A44 ;}
 .today  .td_td span{ color:#fff; border:1px solid #202A44; background-color:#202A44 ;}

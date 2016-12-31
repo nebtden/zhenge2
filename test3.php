@@ -11,6 +11,7 @@ $order_info =array();
 $order_info['store_name'] = 'aaaaaa';
 $order_info['order_sn'] = 555555+time();
 $order_info['paid_amount'] = 0.01;
+$_SESSION['store_id'] = 1;
 $_SESSION['open_id'] ='o0qLLwNFiueQN-UfYWL0Y7H2xIT8';
 $_SESSION['aaa'] =$order_info;
 var_dump($_SESSION['order_info']);

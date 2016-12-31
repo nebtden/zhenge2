@@ -20,7 +20,7 @@
         <dl class="dl_show clearfix">
             <dt>
 
-                <img src="__TMPL__Public{$product_info.image}" alt="" width="60px" height="70px"/>
+                <img src="__TMPL__Public{$product_info.image}" alt="" />
                 <span>{$product_info.title}</span>
             </dt>
             <dd>
@@ -38,7 +38,13 @@
 
         <ul class="ul_btn clearfix">
             <li><a href="javascript:history.back()" class="btn2">重选拍摄类型</a></li>
-            <li><a href="{:U('product/index/date')}" class="btn">下一步</a></li>
+
+            <if condition="($product_info.id eq 12) OR ($product_info.id eq 13) ">
+
+                <li><a href="tel:{$store_info.phone}" class="btn">电话预约</a></li>
+
+                <else /> <li><a href="{:U('product/index/date')}" class="btn">下一步</a></li>
+            </if>
         </ul>
 
     </div>

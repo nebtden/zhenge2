@@ -13,9 +13,18 @@ class AdminIndexController extends AdminbaseController{
 
 
 	function index(){
-        $orders=$this->model_member->order(array("id"=>"ASC"))->select();
+        $count=$this->model_member->count();
+        $page = $this->page($count, 10);
+
+        $orders = $this->model_member
+            ->limit($page->firstRow , $page->listRows)
+            ->order('id desc')
+            ->select();
+
+        $this->assign("page", $page->show('Admin'));
         $this->assign("orders",$orders);
         $this->display();
+
 	}
 
 

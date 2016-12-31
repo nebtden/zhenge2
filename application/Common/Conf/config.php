@@ -105,7 +105,7 @@ $configs= array(
         '__WEB_ROOT__'=>__ROOT__
     ),
 
-    'money'=>0.01
+    'money'=>100
 );
 
 return  array_merge($configs,$db,$runtime_config);
