@@ -27,7 +27,7 @@ namespace Portal\Controller;
 use Common\Controller\HomebaseController;
 use Common\Model\SettingModel;
 use Common\Model\StoreModel;
-use Think\Log;
+//use Think\Log;
 
 /**
  * 首页
@@ -38,10 +38,11 @@ class PayNotifyCallBack extends \WxPayNotify
     //查询订单
     public function Queryorder($transaction_id)
     {
+        require_once SITE_PATH."example/log.php";
         $input = new \WxPayOrderQuery();
         $input->SetTransaction_id($transaction_id);
         $result = \WxPayApi::orderQuery($input);
-        \Log::DEBUG("query:" . json_encode($result));
+        //\Log::DEBUG("query:" . json_encode($result));
         if(array_key_exists("return_code", $result)
             && array_key_exists("result_code", $result)
             && $result["return_code"] == "SUCCESS"
@@ -55,7 +56,8 @@ class PayNotifyCallBack extends \WxPayNotify
     //重写回调处理函数
     public function NotifyProcess($data, &$msg)
     {
-        \Log::DEBUG("call back:" . json_encode($data));
+        require_once SITE_PATH."example/log.php";
+        //\Log::DEBUG("call back:" . json_encode($data));
         $notfiyOutput = array();
 
         if(!array_key_exists("transaction_id", $data)){
@@ -102,15 +104,13 @@ class IndexController extends HomebaseController {
 
 
         $f = fopen('log.txt','a');
-        fwrite($f,date("Y-m-d H:i:s")."post\r\n/r/n".json_encode($_POST));
-        fwrite($f,date("Y-m-d H:i:s")."input\r\n/r/n".file_get_contents("php://input"));
+        fwrite($f,date("Y-m-d H:i:s")."\r\nposts:".json_encode($_POST));
+        fwrite($f,date("Y-m-d H:i:s")."\r\ninpust:".file_get_contents("php://input"));
         fclose($f);
 
         //$_POST 回调通知,写入到这个借口
         if(IS_POST){
-            $f = fopen('log.txt','a');
-            fwrite($f,date("Y-m-d H:i:s")."bbb\r\n/r/n".json_encode($GLOBALS['HTTP_RAW_POST_DATA'].""));
-            fclose($f);
+
 //            require_once SITE_PATH."example/WxPay.JsApiPay.php";
             $notify = new PayNotifyCallBack();
             $notify->Handle(false);
@@ -127,7 +127,7 @@ class IndexController extends HomebaseController {
                 header("Location: $url");
             }else{
                 $_SESSION['open_id'] = $open_id;
-                Log::record($open_id);
+                // Log::record($open_id);
             }
 
             $open_id = $_SESSION['open_id'];
