@@ -41,11 +41,18 @@ class IndexController extends HomebaseController{
         $product_model = M('products');
 
         $product_info=$product_model->where( array ('id'=>$_SESSION['product_id']))->find();
+
+        $model_posts = M('posts');
+        $posts_info = $model_posts->where(array('id'=>11))->find();
+        $rule= $posts_info['post_content'];
+
+
         $this->assign('order_info',$order_info);
         $this->assign('member_info',$member_info);
         $this->assign('store_info',$store_info);
         $this->assign('product_info',$product_info);
         $this->assign('money',C('money'));
+        $this->assign('rule',$rule);
         $this->display(':show');
     }
 
