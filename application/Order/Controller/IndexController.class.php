@@ -250,6 +250,7 @@ class IndexController extends HomebaseController{
 
 
         $this->assign('order_info',$order_info);
+        $this->assign('store_info',$store_info);
         $this->display(':detail');
     }
 

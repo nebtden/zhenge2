@@ -22,13 +22,13 @@
                     <ul class="ul_tb">
                         <li><label for="">订单编号：</label>
                             <div class="d_input color3">{$order_info.order_sn}
-                                <eq name="vo.order_state" value="2">
+                                <eq name="order_info.order_state" value="2">
                                     <span class="s_wan">已支付</span>
                                 </eq>
-                                <eq name="vo.order_state" value="1">
+                                <eq name="order_info.order_state" value="1">
                                     <span class="s_wan">未付款</span>
                                 </eq>
-                                <eq name="vo.order_state" value="0">
+                                <eq name="order_info.order_state" value="0">
                                     <span class="s_wan">已取消</span>
                                 </eq>
 
@@ -45,12 +45,17 @@
                 <dd>
                     <strong>拍摄信息</strong>
                     <ul class="ul_tb ul_tb_b">
-                        <li><label for="">姓       名：</label><div class="d_input color1"> {$order_info.name}</div></li>
-                        <li><label for="">联系方式：</label><div class="d_input color1"> {$order_info.telephone}</div></li>
-                        <li><label for="">拍摄日期：</label><div class="d_input color1">{$order_info.date} {$order_info.time}</div></li>
-                        <li><label for="">拍摄门店：</label><div class="d_input color1">{$order_info.store_name}
+                        <li style="line-height: 24px;">
+                            <label for="">姓       名：</label>
+                            <div class="d_input color1" > {$order_info.name}</div>
+                        </li>
+                        <li style="line-height: 24px;">
+                            <label for="">联系方式：</label><div class="d_input color1" > {$order_info.telephone}</div>
+                        </li>
+                        <li  ><label for="">拍摄日期：</label><div class="d_input color1">{$order_info.date} {$order_info.time}</div></li>
+                        <li ><label for="">拍摄门店：</label><div class="d_input color1">{$order_info.store_name}
                             <span class="ic_md ">
-                                <a href="{$store.addressmap}">门店信息</a>
+                                <a href="{$store_info.address_map}">门店信息</a>
                             </span>
                         </div>
                         </li>
@@ -76,7 +81,9 @@
     <tc_include file="Public:nav" />
 
 </div>
+<style>
 
+</style>
 
 </body>
 </html>

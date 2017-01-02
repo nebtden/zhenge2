@@ -110,11 +110,29 @@ class IndexController extends HomebaseController {
 
         //$_POST 回调通知,写入到这个借口
         if(IS_POST){
+            require_once SITE_PATH."lib/WxPay.Data.php";
+            $xml = file_get_contents("php://input");
+            $obj = new \WxPayDataBase();
+            $obj->FromXml($xml);
+            //fix bug 2015-06-29
+            if($obj->values['return_code'] != 'SUCCESS'){
+                return false;
+            }
+            //$obj->CheckSign();
+            $data = $obj->GetValues();
 
-//            require_once SITE_PATH."example/WxPay.JsApiPay.php";
-            $notify = new PayNotifyCallBack();
-            $notify->Handle(false);
-            return false;
+            $order_sn = $data['out_trade_no'];
+
+            $order_sn = 1483359737427;
+            $model_order = M('orders');
+            $order_info = $model_order->where( array ('order_sn'=>$order_sn))->find();
+            if($order_info){
+                $data=array();
+                $data['order_state']  =2;
+                $res = $model_order->where( array ('order_sn'=>$order_sn))->save($data);
+            }else{
+                return false;
+            }
 
         }else{
             require_once SITE_PATH."lib/WxPay.Api.php";
@@ -145,11 +163,16 @@ class IndexController extends HomebaseController {
 
     }
     public function test(){
-        $data = array();
-        $data['email'] = '1111';
-        $open_id= 'o0qLLwNFiueQN-UfYWL0Y7H2xIT8';
-        $model_members = M('Members');
-        $model_members->where(array('open_id'=>$open_id))->save($data);
+        $order_sn = 1483359737427;
+        $model_order = M('orders');
+        $order_info = $model_order->where( array ('order_sn'=>$order_sn))->find();
+        if($order_info){
+            $data=array();
+            $data['order_state']  =2;
+            $res = $model_order->where( array ('order_sn'=>$order_sn))->save($data);
+        }else{
+            return false;
+        }
     }
 
     public function step2(){
