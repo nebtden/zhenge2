@@ -130,7 +130,7 @@ class IndexController extends HomebaseController{
         $Order->order_sn = time().rand(100,999); // 设置默认的用户状态
         $Order->order_amount = $product_info['price']; // 设置默认的用户状态
 
-        $Order->paid_amount = C('money');
+        $Order->paid_amount = number_format(C('money'),2);
         $Order->created_at =date('Y:m:d H:i:s',time());
 
         $open_id = $_SESSION['open_id'];
