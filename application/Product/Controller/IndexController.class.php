@@ -38,6 +38,10 @@ class IndexController extends HomebaseController{
         if(!$_SESSION['product_id']){
             throw  new  Exception('请选择产品！');
         }
+        $_SESSION['store_name'] = $store_info['store_name'];
+        $_SESSION['x'] = $store_info['x'];
+        $_SESSION['y'] = $store_info['y'];
+
         $this->assign('store_info',$store_info);
         $this->display(':date');
     }

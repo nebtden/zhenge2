@@ -41,17 +41,20 @@
 				<div class="down_t">
 					点击照片下的<span class="btn_down">下载大图</span>按钮，在打开的大图上长按3秒，即可保存大图
 				</div>
+				<foreach name="imagelist" item="vo">
+					<dl class="dl_down">
+						<dt><img src="{$vo}" alt="" /><span>{$vo}</span></dt>
+						<!--<dd>大图3.0MB  <span class="btn_down">下载大图</span></dd>-->
+					</dl>
+					<div class="span3">
+						<img src="{$vo}" width="300px" >
+					</div>
+				</foreach>
 
-				<dl class="dl_down">
-					<dt><img src="style/images/111.png" alt="" /><span>FACE.jpg</span></dt>
-					<dd>大图3.0MB  <span class="btn_down">下载大图</span></dd>
-				</dl>
 
 
-				<dl class="dl_down">
-					<dt><img src="style/images/111.png" alt="" /><span>FACE.jpg</span></dt>
-					<dd>大图3.0MB  <span class="btn_down">下载大图</span></dd>
-				</dl>
+
+
 			</div>
 		</div>
 	</div>

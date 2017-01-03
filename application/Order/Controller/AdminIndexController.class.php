@@ -91,7 +91,7 @@ class AdminIndexController extends AdminbaseController{
 
 
     public function getDir($dir,$order_sn){
-        $fileArray[]=NULL;
+        $fileArray=array();
         if (false != ($handle = opendir ( $dir ))) {
             $i=0;
             while ( false !== ($file = readdir ( $handle )) ) {

@@ -56,6 +56,9 @@ class IndexController extends HomebaseController{
         $this->display(':show');
     }
 
+
+
+
     function printf_info($data)
     {
         foreach($data as $key=>$value){
@@ -156,6 +159,29 @@ class IndexController extends HomebaseController{
         }
     }
 
+    function voucher_json(){
+        $return_list =  array();
+        $return_list['type'] = 0;
+        $return_list['msg'] = '优惠券号码错误或已被使用！';
+
+        if($_POST['voucher']){
+            $model_voucher = M('Vouchers');
+            $where = array();
+            $where['code'] = $_POST['voucher'];
+            $where['is_used'] = 0;
+            $voucher_info = $model_voucher->where($where)->find();
+            if($voucher_info){
+                $return_list['type'] = 1;
+                $return_list['msg'] = $voucher_info['price'];
+            }
+        }else{
+            $return_list['msg'] = '优惠券号码为空！';
+        }
+        echo json_encode($return_list);
+    }
+
+
+
     function create2(){
         $id = intval($_POST['id']);
 //        $id= 4;
@@ -192,6 +218,9 @@ class IndexController extends HomebaseController{
 
         $data['name']  =$_POST['name'];
         $data['voucher']  =$_POST['voucher'];
+        if(isset($voucher_info)){
+            $data['order_amount']  =$order_info['order_amount']-$voucher_info['price'];
+        }
         $data['address']  =$_POST['address'];
         $data['sex']  =$_POST['sex'];
         $data['email']  =$_POST['email'];
@@ -214,12 +243,25 @@ class IndexController extends HomebaseController{
         header("Location: http://$url");
 
     }
-    function test(){
-//        $model_order = M('orders');
-//        $order_info = $model_order->where( array ('id'=>2))->find();
-//        var_dump($order_info);
-//        $_SESSION['order_info'] = $order_info;
-        var_dump( $_SESSION['order_info']);
+
+    public function getDir($dir,$order_sn){
+        $fileArray=array();
+        if (false != ($handle = opendir ( $dir ))) {
+            $i=0;
+            while ( false !== ($file = readdir ( $handle )) ) {
+                //去掉"“.”、“..”以及带“.xxx”后缀的文件
+                if ($file != "." && $file != ".." && strpos($file,".")) {
+                    $fileArray[$i]="/public/uploadFiles/".$order_sn.'/'.$file;
+                    if($i==100){
+                        break;
+                    }
+                    $i++;
+                }
+            }
+            //关闭句柄
+            closedir ( $handle );
+        }
+        return $fileArray;
     }
 
 
@@ -312,7 +354,11 @@ class IndexController extends HomebaseController{
         $order_info['time'] = OrdersModel::$_time_index[$order_info['time_index']];
         $order_info['store_name'] = $store_info['store_name'];
 
+        $path = SITE_PATH."public/uploadFiles/" .$order_info['order_sn'];
+        $imagelist= $this->getDir($path,$order_info['order_sn']);
+
         $this->assign('order_info',$order_info);
+        $this->assign('imagelist',$imagelist);
         $this->display(':down');
     }
 
